@@ -45,7 +45,7 @@ static uint8_t	g_spi_cs_polarity	= 0U;			/* CS polarity */
  * @retval E_OK		success
  * @retval E_OBJ	failure (object error)
  */
-int8_t rpiSpiOpen(char *dev_path)
+int8_t rpiSpiOpen(uint8_t *dev_path)
 {
 	/* check opened port */
 	if (g_spi_fd != -1) {

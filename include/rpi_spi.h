@@ -22,7 +22,7 @@
 /*------------------------------------------------------------------------------
 	Prototype Declaration
 ------------------------------------------------------------------------------*/
-int8_t rpiSpiOpen(char *dev_name);
+int8_t rpiSpiOpen(uint8_t *dev_name);
 int8_t rpiSpiClose();
 int8_t rpiSpiTransfer(uint8_t *tx_data, uint8_t *rx_data, uint32_t size);
 int8_t rpiSpiSetSpiMode(uint8_t mode);
