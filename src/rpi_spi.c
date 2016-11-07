@@ -131,8 +131,8 @@ int8_t rpiSpiClose()
 int8_t rpiSpiTransfer(uint8_t *tx_data, uint8_t *rx_data, uint32_t size)
 {
 	struct spi_ioc_transfer msg = {
-		.tx_buf        = *(uint64_t *)tx_data,
-		.rx_buf        = *(uint64_t *)rx_data,
+		.tx_buf        = (unsigned long)tx_data,
+		.rx_buf        = (unsigned long)rx_data,
 		.len           = size,
 		.speed_hz      = g_spi_speed,
 		.delay_usecs   = g_spi_delay,
@@ -159,8 +159,8 @@ int8_t rpiSpiTransfer(uint8_t *tx_data, uint8_t *rx_data, uint32_t size)
  *		@arg SPI_MODE_3		CPOL: negative logic, CPHA: negative edge
  *
  * @retval E_OK		success
- * @retval E_OBJ	failure (object error)
  * @retval E_PAR	failure (parameter error)
+ * @retval E_OBJ	failure (object error)
  */
 int8_t rpiSpiSetSpiMode(uint8_t mode)
 {
