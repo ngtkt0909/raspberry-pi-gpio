@@ -12,7 +12,6 @@
 #include <sys/ioctl.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <linux/spi/spidev.h>
 #include <stdio.h>
 
 #include "rpi_common.h"
