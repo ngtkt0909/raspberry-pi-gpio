@@ -20,6 +20,11 @@
 /*------------------------------------------------------------------------------
 	Defined Macros
 ------------------------------------------------------------------------------*/
+#define D_FD_NOT_OPEND			(-1)		/* file descriptor (not opened) */
+
+/* check port opened */
+#define M_CHECK_OPENED(fd)	(fd != D_FD_NOT_OPEND)
+
 /* check SPI mode */
 #define M_CHECK_MODE(mode) \
 	((mode == SPI_MODE_0) || (mode == SPI_MODE_1) || (mode == SPI_MODE_2) || (mode == SPI_MODE_3))
@@ -27,12 +32,12 @@
 /*------------------------------------------------------------------------------
 	Global Variables
 ------------------------------------------------------------------------------*/
-static int		g_spi_fd			= -1;			/* file descriptor */
-static uint8_t	g_spi_mode			= SPI_MODE_0;	/* SPI mode */
-static uint32_t	g_spi_speed			= 1000000UL;	/* transfer speed */
-static uint16_t	g_spi_delay			= 0U;			/* transfer delay time */
-static uint8_t	g_spi_bits_per_word	= 8U;			/* bits per word */
-static uint8_t	g_spi_cs_polarity	= 0U;			/* CS polarity */
+static int		g_spi_fd			= D_FD_NOT_OPEND;	/* file descriptor */
+static uint8_t	g_spi_mode			= SPI_MODE_0;		/* SPI mode */
+static uint32_t	g_spi_speed			= 1000000UL;		/* transfer speed */
+static uint16_t	g_spi_delay			= 0U;				/* transfer delay time */
+static uint8_t	g_spi_bits_per_word	= 8U;				/* bits per word */
+static uint8_t	g_spi_cs_polarity	= 0U;				/* CS polarity */
 
 /*------------------------------------------------------------------------------
 	Functions
@@ -48,7 +53,7 @@ static uint8_t	g_spi_cs_polarity	= 0U;			/* CS polarity */
 int8_t rpiSpiOpen(uint8_t *dev_path)
 {
 	/* check opened port */
-	if (g_spi_fd != -1) {
+	if (M_CHECK_OPENED(g_spi_fd)) {
 		fprintf(stderr, "rpiSpiOpen failed: SPI port is already opened\n");
 		return E_OBJ;
 	}
@@ -103,7 +108,7 @@ int8_t rpiSpiOpen(uint8_t *dev_path)
 int8_t rpiSpiClose()
 {
 	/* check opened port */
-	if (g_spi_fd == -1) {
+	if (!M_CHECK_OPENED(g_spi_fd)) {
 		fprintf(stderr, "rpiSpiClose failed: SPI port isn't opened\n");
 		return E_OBJ;
 	}
@@ -113,6 +118,9 @@ int8_t rpiSpiClose()
 		perror("close");
 		return E_OBJ;
 	}
+
+	/* clear file descriptor */
+	g_spi_fd = D_FD_NOT_OPEND;
 
 	return E_OK;
 }
