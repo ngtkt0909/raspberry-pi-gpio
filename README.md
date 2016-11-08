@@ -23,7 +23,7 @@ int main(void)
 	rpiSpiOpen("/dev/spidev0.0");
 
 	/* set SPI mode (CPOL: positive logic, CPHA: positive edge) */
-	rpiSpiSetSpiMode(SPI_MODE_0);
+	rpiSpiSetMode(SPI_MODE_0);
 
 	/* set transfer speed (2MHz) */
 	rpiSpiSetSpeed(2000000UL);

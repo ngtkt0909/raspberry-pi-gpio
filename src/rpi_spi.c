@@ -65,8 +65,8 @@ int8_t rpiSpiOpen(uint8_t *dev_path)
 	}
 
 	/* set default SPI mode */
-	if (rpiSpiSetSpiMode(g_spi_mode) != E_OK) {
-		fprintf(stderr, "rpiSpiSetSpiMode failed\n");
+	if (rpiSpiSetMode(g_spi_mode) != E_OK) {
+		fprintf(stderr, "rpiSpiSetMode failed\n");
 		return E_OBJ;
 	}
 
@@ -169,7 +169,7 @@ int8_t rpiSpiTransfer(uint8_t *tx_data, uint8_t *rx_data, uint32_t size)
  * @retval E_PAR	failure (parameter error)
  * @retval E_OBJ	failure (object error)
  */
-int8_t rpiSpiSetSpiMode(uint8_t mode)
+int8_t rpiSpiSetMode(uint8_t mode)
 {
 	/* parameter check */
 	if (!M_CHECK_MODE(mode)) {
