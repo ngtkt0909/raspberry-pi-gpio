@@ -7,9 +7,21 @@ Library for Raspberry Pi GPIO.
 * SPI Library (rpi_spi.c, rpi_spi.h)
 
 ## I2C Library
+### Preparation
+Enable I2C device driver:
+```shell
+$ sudo raspi-config
+```
+Select [7 Advanced Options] > [A7 I2C] > [Yes].
+
+You can discover drivers at `/dev`:
+```shell
+$ ls /dev | grep i2c
+```
+
 ### Usage
 Sample code to use I2C library is shown below (error handling omitted):
-````C
+```C
 #include "rpi_i2c.h"
 
 #define BUF_SIZE	(8)
@@ -24,7 +36,7 @@ int main(void)
 	rpiI2cOpen("/dev/i2c-1");
 
 	/* set slave address (0x12) */
-	rpiI2cSetSlave(0x12);
+	rpiI2cSetSlave(0x12U);
 
 	/* write data */
 	cmd = ...;
@@ -52,12 +64,24 @@ int main(void)
 
 	return 0;
 }
-````
+```
 
 ## SPI Library
+### Preparation
+Enable I2C device driver:
+```shell
+$ sudo raspi-config
+```
+Select [7 Advanced Options] > [A6 SPI] > [Yes].
+
+You can discover drivers at `/dev`:
+```shell
+$ ls /dev | grep spi
+```
+
 ### Usage
 Sample code to use SPI library is shown below (error handling omitted):
-````C
+```C
 #include "rpi_spi.h"
 
 #define BUF_SIZE	(8)
@@ -97,7 +121,7 @@ int main(void)
 
 	return 0;
 }
-````
+```
 
 ## License
 [MIT](https://github.com/ngtkt0909/dot-emacs/blob/develop/LICENSE)
