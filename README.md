@@ -12,9 +12,9 @@ Enable I2C device driver:
 ```shell
 $ sudo raspi-config
 ```
-Select [7 Advanced Options] > [A7 I2C] > [Yes].
+Select *[7 Advanced Options] > [A7 I2C] > [Yes]*.
 
-You can discover drivers at `/dev`:
+You can discover device drivers at `/dev`:
 ```shell
 $ ls /dev | grep i2c
 ```
@@ -68,13 +68,13 @@ int main(void)
 
 ## SPI Library
 ### Preparation
-Enable I2C device driver:
+Enable SPI device driver:
 ```shell
 $ sudo raspi-config
 ```
-Select [7 Advanced Options] > [A6 SPI] > [Yes].
+Select *[7 Advanced Options] > [A6 SPI] > [Yes]*.
 
-You can discover drivers at `/dev`:
+You can discover device drivers at `/dev`:
 ```shell
 $ ls /dev | grep spi
 ```
