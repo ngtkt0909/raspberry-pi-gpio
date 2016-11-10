@@ -13,6 +13,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <assert.h>
 
 #include "rpi_common.h"
 #include "rpi_spi.h"
@@ -20,6 +21,8 @@
 /*------------------------------------------------------------------------------
 	Defined Macros
 ------------------------------------------------------------------------------*/
+#define D_FD_NOT_OPENED			(-1)		/* file descriptor (not opened) */
+
 /* check SPI mode */
 #define M_CHECK_MODE(mode) \
 	((mode == SPI_MODE_0) || (mode == SPI_MODE_1) || (mode == SPI_MODE_2) || (mode == SPI_MODE_3))
@@ -27,12 +30,12 @@
 /*------------------------------------------------------------------------------
 	Global Variables
 ------------------------------------------------------------------------------*/
-static int		g_spi_fd			= -1;			/* file descriptor */
-static uint8_t	g_spi_mode			= SPI_MODE_0;	/* SPI mode */
-static uint32_t	g_spi_speed			= 1000000UL;	/* transfer speed */
-static uint16_t	g_spi_delay			= 0U;			/* transfer delay time */
-static uint8_t	g_spi_bits_per_word	= 8U;			/* bits per word */
-static uint8_t	g_spi_cs_polarity	= 0U;			/* CS polarity */
+static int		g_spi_fd			= D_FD_NOT_OPENED;	/* file descriptor */
+static uint8_t	g_spi_mode			= SPI_MODE_0;		/* SPI mode */
+static uint32_t	g_spi_speed			= 1000000UL;		/* transfer speed */
+static uint16_t	g_spi_delay			= 0U;				/* transfer delay time */
+static uint8_t	g_spi_bits_per_word	= 8U;				/* bits per word */
+static uint8_t	g_spi_cs_polarity	= 0U;				/* CS polarity */
 
 /*------------------------------------------------------------------------------
 	Functions
@@ -47,21 +50,21 @@ static uint8_t	g_spi_cs_polarity	= 0U;			/* CS polarity */
  */
 int8_t rpiSpiOpen(uint8_t *dev_path)
 {
-	/* check opened port */
-	if (g_spi_fd != -1) {
-		fprintf(stderr, "rpiSpiOpen failed: SPI port is already opened\n");
-		return E_OBJ;
-	}
+	/* check parameter */
+	assert(dev_path != NULL);
+
+	/* check port */
+	assert(g_spi_fd == D_FD_NOT_OPENED);
 
 	/* open SPI port */
-	if ((g_spi_fd = open(dev_path, O_RDWR)) == -1) {
+	if ((g_spi_fd = open((const char *)dev_path, O_RDWR)) == -1) {
 		perror("open");
 		return E_OBJ;
 	}
 
 	/* set default SPI mode */
-	if (rpiSpiSetSpiMode(g_spi_mode) != E_OK) {
-		fprintf(stderr, "rpiSpiSetSpiMode failed\n");
+	if (rpiSpiSetMode(g_spi_mode) != E_OK) {
+		fprintf(stderr, "rpiSpiSetMode failed\n");
 		return E_OBJ;
 	}
 
@@ -102,17 +105,17 @@ int8_t rpiSpiOpen(uint8_t *dev_path)
  */
 int8_t rpiSpiClose()
 {
-	/* check opened port */
-	if (g_spi_fd == -1) {
-		fprintf(stderr, "rpiSpiClose failed: SPI port isn't opened\n");
-		return E_OBJ;
-	}
+	/* check port */
+	assert(g_spi_fd != D_FD_NOT_OPENED);
 
 	/* close SPI port */
 	if (close(g_spi_fd) == -1) {
 		perror("close");
 		return E_OBJ;
 	}
+
+	/* clear file descriptor */
+	g_spi_fd = D_FD_NOT_OPENED;
 
 	return E_OK;
 }
@@ -129,6 +132,11 @@ int8_t rpiSpiClose()
  */
 int8_t rpiSpiTransfer(uint8_t *tx_data, uint8_t *rx_data, uint32_t size)
 {
+	/* check parameter */
+	assert(tx_data != NULL);
+	assert(rx_data != NULL);
+	assert(size > 0);
+
 	struct spi_ioc_transfer msg = {
 		.tx_buf        = (unsigned long)tx_data,
 		.rx_buf        = (unsigned long)rx_data,
@@ -158,15 +166,12 @@ int8_t rpiSpiTransfer(uint8_t *tx_data, uint8_t *rx_data, uint32_t size)
  *		@arg SPI_MODE_3		CPOL: negative logic, CPHA: negative edge
  *
  * @retval E_OK		success
- * @retval E_PAR	failure (parameter error)
  * @retval E_OBJ	failure (object error)
  */
-int8_t rpiSpiSetSpiMode(uint8_t mode)
+int8_t rpiSpiSetMode(uint8_t mode)
 {
-	/* parameter check */
-	if (!M_CHECK_MODE(mode)) {
-		return E_PAR;
-	}
+	/* check parameter */
+	assert(M_CHECK_MODE(mode));
 
 	/* set SPI mode for read-direction */
 	if (ioctl(g_spi_fd, SPI_IOC_RD_MODE, &g_spi_mode) == -1) {
