@@ -7,7 +7,7 @@
  * https://github.com/ngtkt0909/raspberry-pi-gpio/blob/master/LICENSE
  */
 
-#if !defined(__RPI_I2C_H__)
+#ifndef __RPI_I2C_H__
 #define __RPI_I2C_H__		/* include guard */
 
 #include <linux/i2c-dev.h>

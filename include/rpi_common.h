@@ -7,7 +7,7 @@
  * https://github.com/ngtkt0909/raspberry-pi-gpio/blob/master/LICENSE
  */
 
-#if !defined(__RPI_COMMON_H__)
+#ifndef __RPI_COMMON_H__
 #define __RPI_COMMON_H__		/* include guard */
 
 #define E_OK		(0)			/* success */

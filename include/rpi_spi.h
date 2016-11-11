@@ -7,7 +7,7 @@
  * https://github.com/ngtkt0909/raspberry-pi-gpio/blob/master/LICENSE
  */
 
-#if !defined(__RPI_SPI_H__)
+#ifndef __RPI_SPI_H__
 #define __RPI_SPI_H__		/* include guard */
 
 #include <linux/spi/spidev.h>
