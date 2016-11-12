@@ -4,6 +4,8 @@ addons:
   apt:
     packages:
       - build-essential
+      - doxygen
+      - graphviz
 script:
   - make
   - make doc
