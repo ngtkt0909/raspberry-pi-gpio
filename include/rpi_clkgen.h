@@ -1,10 +1,13 @@
 /**
- * raspberry-pi-gpio
+ * @file		rpi_clkgen.h
+ * @brief		Clock Generator Library Header
  *
- * Copyright (c) 2016 T. Ngtk
+ * @author		T. Ngtk
+ * @copyright	Copyright (c) 2016 T. Ngtk
  *
- * Released under the MIT License.
- * https://github.com/ngtkt0909/raspberry-pi-gpio/blob/master/LICENSE
+ * @par License
+ *	Released under the MIT License.<BR>
+ *	https://github.com/ngtkt0909/raspberry-pi-gpio/blob/master/LICENSE
  */
 
 #ifndef __RPI_CLKGEN_H__
