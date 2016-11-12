@@ -102,6 +102,9 @@
 /*------------------------------------------------------------------------------
 	Prototype Declaration
 ------------------------------------------------------------------------------*/
+int8_t rpiGpioInit();
+int8_t rpiGpioFinal();
+
 void rpiGpioSetGpfselFsel(uint8_t pin, uint32_t fsel);
 void rpiGpioSetCmGpctlMash(uint8_t ch, uint32_t mash);
 void rpiGpioSetCmGpctlEnab(uint8_t ch, uint32_t enab);

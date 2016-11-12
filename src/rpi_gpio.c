@@ -55,7 +55,7 @@ static volatile uint8_t *g_base_cm   = NULL;		/* base address of clock manager *
 	Functions
 ------------------------------------------------------------------------------*/
 /**
- * @brief Init GPIO
+ * @brief Initialize GPIO
  *
  * @param nothing
  *
@@ -99,14 +99,14 @@ int8_t rpiGpioInit()
 }
 
 /**
- * @brief Deinit GPIO
+ * @brief Finalize GPIO
  *
  * @param nothing
  *
  * @retval E_OK		success
  * @retval E_OBJ	failure (object error)
  */
-int8_t rpiGpioDeinit()
+int8_t rpiGpioFinal()
 {
 	/* unmap GPIO */
 	if (munmap((void *)g_base_gpio, D_RPI_BLOCK_SIZE) == -1) {
