@@ -1,12 +1,11 @@
-sudo: false
 language: c
-
-install: true
-
+sudo: false
 addons:
   apt:
     packages:
       - build-essential
-
 script:
   - make
+notifications:
+  on_success: never
+  on_failure: never
