@@ -6,6 +6,7 @@ addons:
       - build-essential
 script:
   - make
+  - make doc
 notifications:
   on_success: never
   on_failure: never
