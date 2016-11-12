@@ -22,10 +22,10 @@
 	Defined Macros
 ------------------------------------------------------------------------------*/
 /* check base address of GPIO */
-#define M_CHECK_BASE_GPIO()	(g_base_gpio != NULL)
+#define M_CHECK_BASE_GPIO()	(g_gpio_base_gpio != NULL)
 
 /* check base address of clock manager */
-#define M_CHECK_BASE_CM()	(g_base_cm != NULL)
+#define M_CHECK_BASE_CM()	(g_gpio_base_cm != NULL)
 
 /* check number of GPIO pin */
 #define M_CHECK_PIN(pin)	((pin >= 0) && (pin <= 53))
@@ -48,8 +48,8 @@
 /*------------------------------------------------------------------------------
 	Global Variables
 ------------------------------------------------------------------------------*/
-static volatile uint8_t *g_base_gpio = NULL;		/* base address of GPIO */
-static volatile uint8_t *g_base_cm   = NULL;		/* base address of clock manager */
+static volatile uint8_t *g_gpio_base_gpio = NULL;		/* base address of GPIO */
+static volatile uint8_t *g_gpio_base_cm   = NULL;		/* base address of clock manager */
 
 /*------------------------------------------------------------------------------
 	Functions
@@ -79,7 +79,7 @@ int8_t rpiGpioInit()
 		perror("mmap");
 		return E_OBJ;
 	}
-	g_base_gpio = (volatile uint8_t *)mmap_gpio;
+	g_gpio_base_gpio = (volatile uint8_t *)mmap_gpio;
 
 	/* map clock manager */
 	if ((mmap_cm = mmap(NULL, D_RPI_BLOCK_SIZE,
@@ -88,7 +88,7 @@ int8_t rpiGpioInit()
 		perror("mmap");
 		return E_OBJ;
 	}
-	g_base_cm   = (volatile uint8_t *)mmap_cm;
+	g_gpio_base_cm = (volatile uint8_t *)mmap_cm;
 
 	if (close(fd) == -1) {
 		perror("close");
@@ -109,18 +109,18 @@ int8_t rpiGpioInit()
 int8_t rpiGpioFinal()
 {
 	/* unmap GPIO */
-	if (munmap((void *)g_base_gpio, D_RPI_BLOCK_SIZE) == -1) {
+	if (munmap((void *)g_gpio_base_gpio, D_RPI_BLOCK_SIZE) == -1) {
 		perror("munmap");
 		return E_OBJ;
 	}
-	g_base_gpio = NULL;
+	g_gpio_base_gpio = NULL;
 
 	/* unmap clock manager */
-	if (munmap((void *)g_base_cm, D_RPI_BLOCK_SIZE) == -1) {
+	if (munmap((void *)g_gpio_base_cm, D_RPI_BLOCK_SIZE) == -1) {
 		perror("munmap");
 		return E_OBJ;
 	}
-	g_base_cm = NULL;
+	g_gpio_base_cm = NULL;
 
 	return E_OK;
 }
