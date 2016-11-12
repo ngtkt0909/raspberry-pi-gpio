@@ -18,26 +18,27 @@
 /*------------------------------------------------------------------------------
 	Defined Macros
 ------------------------------------------------------------------------------*/
-#define D_CH_INVALID	(0xFF)		/* invalid channel number */
-#define D_CH_GPCLK0		(0)			/* channel number of GPCLK0 */
-#define D_CH_GPCLK1		(1)			/* channel number of GPCLK1 */
-#define D_CH_GPCLK2		(2)			/* channel number of GPCLK2 */
+#define D_CH_INVALID	(0xFF)		/**< invalid channel number */
+#define D_CH_GPCLK0		(0)			/**< channel number of GPCLK0 */
+#define D_CH_GPCLK1		(1)			/**< channel number of GPCLK1 */
+#define D_CH_GPCLK2		(2)			/**< channel number of GPCLK2 */
 
-/* check number of GPIO pin */
+/** check number of GPIO pin */
 #define M_CHECK_PIN(pin)	((pin >= 0) && (pin <= 53))
 
 /*------------------------------------------------------------------------------
 	Type Definition
 ------------------------------------------------------------------------------*/
+/** @brief GPIO - clock manager map table */
 typedef struct t_clkgen_gpio_map {
-	uint8_t	ch;			/* channel of clock manager */
-	uint8_t	alt;		/* alternate function for clock manager */
+	uint8_t	ch;			/**< channel of clock manager */
+	uint8_t	alt;		/**< alternate function for clock manager */
 } T_CLKGEN_GPIO_MAP;
 
 /*------------------------------------------------------------------------------
 	Global Variables
 ------------------------------------------------------------------------------*/
-/* map table: number of GPIO pin -> channel of clock manager */
+/** map table: number of GPIO pin -> channel of clock manager */
 const T_CLKGEN_GPIO_MAP g_clkgen_gpio_ch_map[] = {
 	{D_CH_INVALID,	D_RPI_GPFSEL_FSEL_INPUT},		/* GPIO pin 0 */
 	{D_CH_INVALID,	D_RPI_GPFSEL_FSEL_INPUT},		/* GPIO pin 1 */

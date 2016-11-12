@@ -24,21 +24,21 @@
 /*------------------------------------------------------------------------------
 	Defined Macros
 ------------------------------------------------------------------------------*/
-#define D_FD_NOT_OPENED			(-1)		/* file descriptor (not opened) */
+#define D_FD_NOT_OPENED			(-1)		/**< file descriptor (not opened) */
 
-/* check SPI mode */
+/** check SPI mode */
 #define M_CHECK_MODE(mode) \
 	((mode == SPI_MODE_0) || (mode == SPI_MODE_1) || (mode == SPI_MODE_2) || (mode == SPI_MODE_3))
 
 /*------------------------------------------------------------------------------
 	Global Variables
 ------------------------------------------------------------------------------*/
-static int		g_spi_fd			= D_FD_NOT_OPENED;	/* file descriptor */
-static uint8_t	g_spi_mode			= SPI_MODE_0;		/* SPI mode */
-static uint32_t	g_spi_speed			= 1000000UL;		/* transfer speed */
-static uint16_t	g_spi_delay			= 0U;				/* transfer delay time */
-static uint8_t	g_spi_bits_per_word	= 8U;				/* bits per word */
-static uint8_t	g_spi_cs_polarity	= 0U;				/* CS polarity */
+static int		g_spi_fd			= D_FD_NOT_OPENED;	/**< file descriptor */
+static uint8_t	g_spi_mode			= SPI_MODE_0;		/**< SPI mode */
+static uint32_t	g_spi_speed			= 1000000UL;		/**< transfer speed */
+static uint16_t	g_spi_delay			= 0U;				/**< transfer delay time */
+static uint8_t	g_spi_bits_per_word	= 8U;				/**< bits per word */
+static uint8_t	g_spi_cs_polarity	= 0U;				/**< CS polarity */
 
 /*------------------------------------------------------------------------------
 	Functions

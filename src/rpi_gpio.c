@@ -24,35 +24,35 @@
 /*------------------------------------------------------------------------------
 	Defined Macros
 ------------------------------------------------------------------------------*/
-/* check base address of GPIO */
+/** check base address of GPIO */
 #define M_CHECK_BASE_GPIO()	(g_gpio_base_gpio != NULL)
 
-/* check base address of clock manager */
+/** check base address of clock manager */
 #define M_CHECK_BASE_CM()	(g_gpio_base_cm != NULL)
 
-/* check number of GPIO pin */
+/** check number of GPIO pin */
 #define M_CHECK_PIN(pin)	((pin >= 0) && (pin <= 53))
 
-/* check channel of clock manager */
+/** check channel of clock manager */
 #define M_CHECK_CM_CH(ch)	((ch >= 0) && (ch<= 2))
 
-/* check CM_GPnCTL.MASH */
+/** check CM_GPnCTL.MASH */
 #define M_CHECK_CM_MASH(mash) \
 	((mash >= D_RPI_CMGPCTL_MASH_INT) && (mash <= D_RPI_CMGPCTL_MASH_3STAGE))
 
-/* check CM_GPnCTL.ENAB */
+/** check CM_GPnCTL.ENAB */
 #define M_CHECK_CM_ENAB(enab) \
 	((enab >= D_RPI_CMGPCTL_ENAB_OFF) && (enab <= D_RPI_CMGPCTL_ENAB_ON))
 
-/* check CM_GPnCTL.SRC */
+/** check CM_GPnCTL.SRC */
 #define M_CHECK_CM_SRC(src) \
 	((src >= D_RPI_CMGPCTL_SRC_GND) && (src <= D_RPI_CMGPCTL_SRC_HDMI))
 
 /*------------------------------------------------------------------------------
 	Global Variables
 ------------------------------------------------------------------------------*/
-static volatile uint8_t *g_gpio_base_gpio = NULL;		/* base address of GPIO */
-static volatile uint8_t *g_gpio_base_cm   = NULL;		/* base address of clock manager */
+static volatile uint8_t *g_gpio_base_gpio = NULL;		/**< base address of GPIO */
+static volatile uint8_t *g_gpio_base_cm   = NULL;		/**< base address of clock manager */
 
 /*------------------------------------------------------------------------------
 	Functions

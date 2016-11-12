@@ -26,13 +26,13 @@
 /*------------------------------------------------------------------------------
 	Defined Macros
 ------------------------------------------------------------------------------*/
-#define D_FD_NOT_OPENED			(-1)		/* file descriptor (not opened) */
-#define D_DEFAULT_SLAVE_ADDR	(0x00U)		/* default slave address */
+#define D_FD_NOT_OPENED			(-1)		/**< file descriptor (not opened) */
+#define D_DEFAULT_SLAVE_ADDR	(0x00U)		/**< default slave address */
 
 /*------------------------------------------------------------------------------
 	Global Variables
 ------------------------------------------------------------------------------*/
-static int g_i2c_fd = D_FD_NOT_OPENED;		/* file descriptor */
+static int g_i2c_fd = D_FD_NOT_OPENED;		/**< file descriptor */
 
 /*------------------------------------------------------------------------------
 	Functions
