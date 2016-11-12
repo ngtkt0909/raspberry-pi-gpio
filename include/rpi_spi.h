@@ -11,7 +11,7 @@
  */
 
 #ifndef __RPI_SPI_H__
-#define __RPI_SPI_H__		/* include guard */
+#define __RPI_SPI_H__		/**< include guard */
 
 #include <linux/spi/spidev.h>
 #include <stdint.h>
@@ -19,8 +19,8 @@
 /*------------------------------------------------------------------------------
 	Defined Macros
 ------------------------------------------------------------------------------*/
-#define D_SPI_CS_POS_LOGIC		(1U)				/* CS Positive Logic */
-#define D_SPI_CS_NEG_LOGIC		(0U)				/* CS Negative Logic */
+#define D_SPI_CS_POS_LOGIC		(1U)				/**< CS Positive Logic */
+#define D_SPI_CS_NEG_LOGIC		(0U)				/**< CS Negative Logic */
 
 /*------------------------------------------------------------------------------
 	Prototype Declaration

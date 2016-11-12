@@ -11,7 +11,7 @@
  */
 
 #ifndef __RPI_CLKGEN_H__
-#define __RPI_CLKGEN_H__		/* include guard */
+#define __RPI_CLKGEN_H__		/**< include guard */
 
 #include <stdint.h>
 #include "rpi_gpio.h"
