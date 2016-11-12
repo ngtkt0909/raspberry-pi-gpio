@@ -1,5 +1,11 @@
 # raspberry-pi-gpio
 
+* master:  
+[![Build Status](https://travis-ci.org/ngtkt0909/raspberry-pi-gpio.svg?branch=master)](https://travis-ci.org/ngtkt0909/raspberry-pi-gpio)
+
+* develop:  
+[![Build Status](https://travis-ci.org/ngtkt0909/raspberry-pi-gpio.svg?branch=develop)](https://travis-ci.org/ngtkt0909/raspberry-pi-gpio)
+
 ## Overview
 Library for Raspberry Pi GPIO.
 
