@@ -15,25 +15,25 @@
 /*------------------------------------------------------------------------------
 	Defined Macros
 ------------------------------------------------------------------------------*/
-#define D_RPI_BASE_GPIO					(0x3F200000)			/* base address of GPIO */
-#define D_RPI_BASE_CM					(0x3F101000)			/* base address of clock manager */
-#define D_RPI_BLOCK_SIZE				(4096)					/* block size for mmap */
+#define D_RPI_BASE_GPIO					(0x3F200000)		/* base address of GPIO */
+#define D_RPI_BASE_CM					(0x3F101000)		/* base address of clock manager */
+#define D_RPI_BLOCK_SIZE				(4096)				/* block size for mmap */
 
-#define D_RPI_BASE_GPFSEL				(g_base_gpio + 0x00)	/* GPIO Function Select */
-#define D_RPI_BASE_GPSET				(g_base_gpio + 0x1C)	/* GPIO Pin Output Set */
-#define D_RPI_BASE_GPCLR				(g_base_gpio + 0x28)	/* GPIO Pin Output Clear */
-#define D_RPI_BASE_GPLEV				(g_base_gpio + 0x34)	/* GPIO Pin Level */
-#define D_RPI_BASE_GPEDS				(g_base_gpio + 0x40)	/* GPIO Pin Event Detect Status */
-#define D_RPI_BASE_GPREN				(g_base_gpio + 0x4C)	/* GPIO Pin Rising Edge Detect Enable */
-#define D_RPI_BASE_GPFEN				(g_base_gpio + 0x58)	/* GPIO Pin Falling Edge Detect Enable */
-#define D_RPI_BASE_GPHEN				(g_base_gpio + 0x64)	/* GPIO Pin High Detect Enable */
-#define D_RPI_BASE_GPLEN				(g_base_gpio + 0x70)	/* GPIO Pin Low Detect Enable */
-#define D_RPI_BASE_GPAREN				(g_base_gpio + 0x7C)	/* GPIO Pin Async. Rising Edge Detect */
-#define D_RPI_BASE_GPAFEN				(g_base_gpio + 0x88)	/* GPIO Pin Async. Falling Edge Detect */
-#define D_RPI_BASE_GPPUD				(g_base_gpio + 0x94)	/* GPIO Pin Pull-up/down Enable */
-#define D_RPI_BASE_GPPUDCLK				(g_base_gpio + 0x98)	/* GPIO Pin Pull-up/down Enable Clock */
-#define D_RPI_BASE_CMGPCTL				(g_base_cm   + 0x70)	/* Clock Manager General Purpose Clocks Control */
-#define D_RPI_BASE_CMGPDIV				(g_base_cm   + 0x74)	/* Clock Manager General Purpose Clock Divisors */
+#define D_RPI_BASE_GPFSEL				(g_gpio_base_gpio + 0x00)	/* GPIO Function Select */
+#define D_RPI_BASE_GPSET				(g_gpio_base_gpio + 0x1C)	/* GPIO Pin Output Set */
+#define D_RPI_BASE_GPCLR				(g_gpio_base_gpio + 0x28)	/* GPIO Pin Output Clear */
+#define D_RPI_BASE_GPLEV				(g_gpio_base_gpio + 0x34)	/* GPIO Pin Level */
+#define D_RPI_BASE_GPEDS				(g_gpio_base_gpio + 0x40)	/* GPIO Pin Event Detect Status */
+#define D_RPI_BASE_GPREN				(g_gpio_base_gpio + 0x4C)	/* GPIO Pin Rising Edge Detect Enable */
+#define D_RPI_BASE_GPFEN				(g_gpio_base_gpio + 0x58)	/* GPIO Pin Falling Edge Detect Enable */
+#define D_RPI_BASE_GPHEN				(g_gpio_base_gpio + 0x64)	/* GPIO Pin High Detect Enable */
+#define D_RPI_BASE_GPLEN				(g_gpio_base_gpio + 0x70)	/* GPIO Pin Low Detect Enable */
+#define D_RPI_BASE_GPAREN				(g_gpio_base_gpio + 0x7C)	/* GPIO Pin Async. Rising Edge Detect */
+#define D_RPI_BASE_GPAFEN				(g_gpio_base_gpio + 0x88)	/* GPIO Pin Async. Falling Edge Detect */
+#define D_RPI_BASE_GPPUD				(g_gpio_base_gpio + 0x94)	/* GPIO Pin Pull-up/down Enable */
+#define D_RPI_BASE_GPPUDCLK				(g_gpio_base_gpio + 0x98)	/* GPIO Pin Pull-up/down Enable Clock */
+#define D_RPI_BASE_CMGPCTL				(g_gpio_base_cm   + 0x70)	/* Clock Manager General Purpose Clocks Control */
+#define D_RPI_BASE_CMGPDIV				(g_gpio_base_cm   + 0x74)	/* Clock Manager General Purpose Clock Divisors */
 
 #define M_RPI_ADDR_GPFSEL(pin)			(((uint32_t *)D_RPI_BASE_GPFSEL) + ((pin) / 10))	/* address of GPFSEL */
 #define M_RPI_ADDR_CMGPCTL(ch)			(((uint32_t *)D_RPI_BASE_CMGPCTL) + ((ch) << 1))	/* address of CM_GPnCTL */

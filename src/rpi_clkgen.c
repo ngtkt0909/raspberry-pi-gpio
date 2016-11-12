@@ -35,7 +35,7 @@ typedef struct t_clkgen_gpio_map {
 	Global Variables
 ------------------------------------------------------------------------------*/
 /* map table: number of GPIO pin -> channel of clock manager */
-const int8_t g_clkgen_gpio_ch_map[] = {
+const T_CLKGEN_GPIO_MAP g_clkgen_gpio_ch_map[] = {
 	{D_CH_INVALID,	D_RPI_GPFSEL_FSEL_INPUT},		/* GPIO pin 0 */
 	{D_CH_INVALID,	D_RPI_GPFSEL_FSEL_INPUT},		/* GPIO pin 1 */
 	{D_CH_INVALID,	D_RPI_GPFSEL_FSEL_INPUT},		/* GPIO pin 2 */
@@ -128,7 +128,7 @@ void rpiClkgenEnable(uint8_t pin, uint32_t mash, uint32_t src, uint32_t divi, ui
 	assert(M_CHECK_PIN(pin));
 
 	ch  = g_clkgen_gpio_ch_map[pin].ch;
-	alt = g_clkgen_gpio_ch_map[pin].alt
+	alt = g_clkgen_gpio_ch_map[pin].alt;
 
 	/* initialize GPIO */
 	ret = rpiGpioInit();
