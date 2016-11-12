@@ -1,0 +1,12 @@
+sudo: false
+language: c
+
+install: true
+
+addons:
+  apt:
+    packages:
+      - build-essential
+
+script:
+  - make
