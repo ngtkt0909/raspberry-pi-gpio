@@ -9,8 +9,16 @@
 ## Overview
 Library for Raspberry Pi GPIO.
 
+* GPIO Library (rpi_gpio.c, rpi_gpio.h)
 * I2C Library (rpi_i2c.c, rpi_i2c.h)
 * SPI Library (rpi_spi.c, rpi_spi.h)
+
+## GPIO Library
+### Preparation
+(T.B.D.)
+
+### Usage
+(T.B.D.)
 
 ## I2C Library
 ### Preparation
