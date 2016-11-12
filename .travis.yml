@@ -5,7 +5,7 @@ addons:
     packages:
       - build-essential
 script:
-  - make
+  - cd test && make
 notifications:
   on_success: never
   on_failure: never
