@@ -145,6 +145,23 @@ int main(void)
 }
 ```
 
+## Documentation
+Install tools to generate documentation:
+```shell
+$ sudo apt-get install doxygen graphviz texlive-full
+```
+
+Make html based documentation (./doc/html/index.html):
+```shell
+$ make doc
+```
+
+Make pdf based documentation (./doc/latex/refman.pdf):
+```shell
+$ cd doc/latex
+$ make
+```
+
 ## License
 [MIT](https://github.com/ngtkt0909/dot-emacs/blob/develop/LICENSE)
 
