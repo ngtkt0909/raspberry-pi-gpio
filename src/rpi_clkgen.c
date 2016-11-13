@@ -32,7 +32,7 @@
 /** @brief GPIO - clock manager map table */
 typedef struct t_clkgen_gpio_map {
 	uint8_t	ch;			/**< channel of clock manager */
-	uint8_t	alt;		/**< alternate function for clock manager */
+	uint8_t	fsel;		/**< alternate function for clock manager */
 } T_CLKGEN_GPIO_MAP;
 
 /*------------------------------------------------------------------------------
@@ -125,14 +125,14 @@ const T_CLKGEN_GPIO_MAP g_clkgen_gpio_ch_map[] = {
  */
 void rpiClkgenEnable(uint8_t pin, uint32_t mash, uint32_t src, uint32_t divi, uint32_t divf)
 {
-	uint8_t ch, alt;
+	uint8_t ch, fsel;
 	int8_t ret;
 
 	/* check parameter */
 	assert(M_CHECK_PIN(pin));
 
-	ch  = g_clkgen_gpio_ch_map[pin].ch;
-	alt = g_clkgen_gpio_ch_map[pin].alt;
+	ch   = g_clkgen_gpio_ch_map[pin].ch;
+	fsel = g_clkgen_gpio_ch_map[pin].fsel;
 
 	/* initialize GPIO */
 	ret = rpiGpioInit();
@@ -143,7 +143,7 @@ void rpiClkgenEnable(uint8_t pin, uint32_t mash, uint32_t src, uint32_t divi, ui
 	while (rpiGpioGetCmGpctlBusy(ch) == D_RPI_CMGPCTL_BUSY_ON);
 
 	/* set parameters */
-	rpiGpioSetGpfselFsel(pin, alt);
+	rpiGpioSetGpfselFsel(pin, fsel);
 	rpiGpioSetCmGpctlMash(ch, mash);
 	rpiGpioSetCmGpctlSrc(ch, src);
 	rpiGpioSetCmGpdivDivi(ch, divi);
