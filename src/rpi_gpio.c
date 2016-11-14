@@ -87,7 +87,7 @@ int8_t rpiGpioInit()
 	/* map clock manager */
 	if ((mmap_cm = mmap(NULL, D_RPI_BLOCK_SIZE,
 						PROT_READ | PROT_WRITE, MAP_SHARED,
-						fd, D_RPI_BASE_GPIO)) == MAP_FAILED) {
+						fd, D_RPI_BASE_CM)) == MAP_FAILED) {
 		perror("mmap");
 		return E_OBJ;
 	}
