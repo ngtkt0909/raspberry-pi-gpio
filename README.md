@@ -10,18 +10,11 @@
 Library for Raspberry Pi GPIO.
 
 * Clock Generator Library (rpi_clkgen.c, rpi_clkgen.h)
-* GPIO Library (rpi_gpio.c, rpi_gpio.h)
 * I2C Library (rpi_i2c.c, rpi_i2c.h)
 * SPI Library (rpi_spi.c, rpi_spi.h)
+* Register Map Library (rpi_regmap.c, rpi_regmap.h)
 
 ## Clock Generator Library
-### Preparation
-(T.B.D.)
-
-### Usage
-(T.B.D.)
-
-## GPIO Library
 ### Preparation
 (T.B.D.)
 
@@ -144,6 +137,13 @@ int main(void)
 	return 0;
 }
 ```
+
+## Register Map Library
+### Preparation
+(T.B.D.)
+
+### Usage
+(T.B.D.)
 
 ## Documentation
 Install tools to generate documentation:

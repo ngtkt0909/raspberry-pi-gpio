@@ -14,7 +14,7 @@
 #define __RPI_CLKGEN_H__		/**< include guard */
 
 #include <stdint.h>
-#include "rpi_gpio.h"
+#include "rpi_regmap.h"
 
 /*------------------------------------------------------------------------------
 	Prototype Declaration
