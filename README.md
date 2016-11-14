@@ -19,7 +19,7 @@ Library for Raspberry Pi GPIO.
 Nothing.
 
 ### Usage
-Sample code to enable clock generator is shown below:
+Sample code to enable clock generator:
 ```C
 #include "rpi_clkgen.h"
 
@@ -32,7 +32,7 @@ int main(void)
 }
 ```
 
-Sample code to disable clock generator is shown below:
+Sample code to disable clock generator:
 ```C
 #include "rpi_clkgen.h"
 
@@ -72,7 +72,7 @@ $ ls /dev | grep i2c
 ```
 
 ### Usage
-Sample code to use I2C library is shown below (error handling omitted):
+Sample code to use I2C library:
 ```C
 #include "rpi_i2c.h"
 
@@ -132,7 +132,7 @@ $ ls /dev | grep spi
 ```
 
 ### Usage
-Sample code to use SPI library is shown below (error handling omitted):
+Sample code to use SPI library:
 ```C
 #include "rpi_spi.h"
 
