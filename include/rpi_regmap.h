@@ -1,6 +1,6 @@
 /**
- * @file		rpi_gpio.h
- * @brief		GPIO Library Header
+ * @file		rpi_regmap.h
+ * @brief		Register Map Library Header
  *
  * @author		T. Ngtk
  * @copyright	Copyright (c) 2016 T. Ngtk
@@ -10,8 +10,8 @@
  *	https://github.com/ngtkt0909/raspberry-pi-gpio/blob/master/LICENSE
  */
 
-#ifndef __RPI_GPIO_H__
-#define __RPI_GPIO_H__		/**< include guard */
+#ifndef __RPI_REGMAP_H__
+#define __RPI_REGMAP_H__		/**< include guard */
 
 #include <stdint.h>
 
@@ -22,21 +22,21 @@
 #define D_RPI_BASE_CM					(0x3F101000)		/**< base address of clock manager */
 #define D_RPI_BLOCK_SIZE				(4096)				/**< block size for mmap */
 
-#define D_RPI_BASE_GPFSEL				(g_gpio_base_gpio + 0x00)	/**< GPIO Function Select */
-#define D_RPI_BASE_GPSET				(g_gpio_base_gpio + 0x1C)	/**< GPIO Pin Output Set */
-#define D_RPI_BASE_GPCLR				(g_gpio_base_gpio + 0x28)	/**< GPIO Pin Output Clear */
-#define D_RPI_BASE_GPLEV				(g_gpio_base_gpio + 0x34)	/**< GPIO Pin Level */
-#define D_RPI_BASE_GPEDS				(g_gpio_base_gpio + 0x40)	/**< GPIO Pin Event Detect Status */
-#define D_RPI_BASE_GPREN				(g_gpio_base_gpio + 0x4C)	/**< GPIO Pin Rising Edge Detect Enable */
-#define D_RPI_BASE_GPFEN				(g_gpio_base_gpio + 0x58)	/**< GPIO Pin Falling Edge Detect Enable */
-#define D_RPI_BASE_GPHEN				(g_gpio_base_gpio + 0x64)	/**< GPIO Pin High Detect Enable */
-#define D_RPI_BASE_GPLEN				(g_gpio_base_gpio + 0x70)	/**< GPIO Pin Low Detect Enable */
-#define D_RPI_BASE_GPAREN				(g_gpio_base_gpio + 0x7C)	/**< GPIO Pin Async. Rising Edge Detect */
-#define D_RPI_BASE_GPAFEN				(g_gpio_base_gpio + 0x88)	/**< GPIO Pin Async. Falling Edge Detect */
-#define D_RPI_BASE_GPPUD				(g_gpio_base_gpio + 0x94)	/**< GPIO Pin Pull-up/down Enable */
-#define D_RPI_BASE_GPPUDCLK				(g_gpio_base_gpio + 0x98)	/**< GPIO Pin Pull-up/down Enable Clock */
-#define D_RPI_BASE_CMGPCTL				(g_gpio_base_cm   + 0x70)	/**< Clock Manager General Purpose Clocks Control */
-#define D_RPI_BASE_CMGPDIV				(g_gpio_base_cm   + 0x74)	/**< Clock Manager General Purpose Clock Divisors */
+#define D_RPI_BASE_GPFSEL				(g_regmap_base_gpio + 0x00)		/**< GPIO Function Select */
+#define D_RPI_BASE_GPSET				(g_regmap_base_gpio + 0x1C)		/**< GPIO Pin Output Set */
+#define D_RPI_BASE_GPCLR				(g_regmap_base_gpio + 0x28)		/**< GPIO Pin Output Clear */
+#define D_RPI_BASE_GPLEV				(g_regmap_base_gpio + 0x34)		/**< GPIO Pin Level */
+#define D_RPI_BASE_GPEDS				(g_regmap_base_gpio + 0x40)		/**< GPIO Pin Event Detect Status */
+#define D_RPI_BASE_GPREN				(g_regmap_base_gpio + 0x4C)		/**< GPIO Pin Rising Edge Detect Enable */
+#define D_RPI_BASE_GPFEN				(g_regmap_base_gpio + 0x58)		/**< GPIO Pin Falling Edge Detect Enable */
+#define D_RPI_BASE_GPHEN				(g_regmap_base_gpio + 0x64)		/**< GPIO Pin High Detect Enable */
+#define D_RPI_BASE_GPLEN				(g_regmap_base_gpio + 0x70)		/**< GPIO Pin Low Detect Enable */
+#define D_RPI_BASE_GPAREN				(g_regmap_base_gpio + 0x7C)		/**< GPIO Pin Async. Rising Edge Detect */
+#define D_RPI_BASE_GPAFEN				(g_regmap_base_gpio + 0x88)		/**< GPIO Pin Async. Falling Edge Detect */
+#define D_RPI_BASE_GPPUD				(g_regmap_base_gpio + 0x94)		/**< GPIO Pin Pull-up/down Enable */
+#define D_RPI_BASE_GPPUDCLK				(g_regmap_base_gpio + 0x98)		/**< GPIO Pin Pull-up/down Enable Clock */
+#define D_RPI_BASE_CMGPCTL				(g_regmap_base_cm   + 0x70)		/**< Clock Manager General Purpose Clocks Control */
+#define D_RPI_BASE_CMGPDIV				(g_regmap_base_cm   + 0x74)		/**< Clock Manager General Purpose Clock Divisors */
 
 #define M_RPI_ADDR_GPFSEL(pin)			(((uint32_t *)D_RPI_BASE_GPFSEL) + ((pin) / 10))	/**< address of GPFSEL */
 #define M_RPI_ADDR_CMGPCTL(ch)			(((uint32_t *)D_RPI_BASE_CMGPCTL) + ((ch) << 1))	/**< address of CM_GPnCTL */
@@ -105,22 +105,22 @@
 /*------------------------------------------------------------------------------
 	Prototype Declaration
 ------------------------------------------------------------------------------*/
-int8_t rpiGpioInit();
-int8_t rpiGpioFinal();
+int8_t rpiRegmapInit();
+int8_t rpiRegmapFinal();
 
-void rpiGpioSetGpfselFsel(uint8_t pin, uint32_t fsel);
-void rpiGpioSetCmGpctlMash(uint8_t ch, uint32_t mash);
-void rpiGpioSetCmGpctlEnab(uint8_t ch, uint32_t enab);
-void rpiGpioSetCmGpctlSrc(uint8_t ch, uint32_t src);
-void rpiGpioSetCmGpdivDivi(uint8_t ch, uint32_t divi);
-void rpiGpioSetCmGpdivDivf(uint8_t ch, uint32_t divf);
+void rpiRegmapSetGpfselFsel(uint8_t pin, uint32_t fsel);
+void rpiRegmapSetCmGpctlMash(uint8_t ch, uint32_t mash);
+void rpiRegmapSetCmGpctlEnab(uint8_t ch, uint32_t enab);
+void rpiRegmapSetCmGpctlSrc(uint8_t ch, uint32_t src);
+void rpiRegmapSetCmGpdivDivi(uint8_t ch, uint32_t divi);
+void rpiRegmapSetCmGpdivDivf(uint8_t ch, uint32_t divf);
 
-uint32_t rpiGpioGetGpfselFsel(uint8_t pin);
-uint32_t rpiGpioGetCmGpctlMash(uint8_t ch);
-uint32_t rpiGpioGetCmGpctlBusy(uint8_t ch);
-uint32_t rpiGpioGetCmGpctlEnab(uint8_t ch);
-uint32_t rpiGpioGetCmGpctlSrc(uint8_t ch);
-uint32_t rpiGpioGetCmGpdivDivi(uint8_t ch);
-uint32_t rpiGpioGetCmGpdivDivf(uint8_t ch);
+uint32_t rpiRegmapGetGpfselFsel(uint8_t pin);
+uint32_t rpiRegmapGetCmGpctlMash(uint8_t ch);
+uint32_t rpiRegmapGetCmGpctlBusy(uint8_t ch);
+uint32_t rpiRegmapGetCmGpctlEnab(uint8_t ch);
+uint32_t rpiRegmapGetCmGpctlSrc(uint8_t ch);
+uint32_t rpiRegmapGetCmGpdivDivi(uint8_t ch);
+uint32_t rpiRegmapGetCmGpdivDivf(uint8_t ch);
 
-#endif /* __RPI_GPIO_H__ */
+#endif /* __RPI_REGMAP_H__ */

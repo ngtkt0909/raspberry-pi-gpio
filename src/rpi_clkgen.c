@@ -134,27 +134,27 @@ void rpiClkgenEnable(uint8_t pin, uint32_t mash, uint32_t src, uint32_t divi, ui
 	ch   = g_clkgen_gpio_ch_map[pin].ch;
 	fsel = g_clkgen_gpio_ch_map[pin].fsel;
 
-	/* initialize GPIO */
-	ret = rpiGpioInit();
+	/* initialize register map */
+	ret = rpiRegmapInit();
 	assert(ret == E_OK);
 
 	/* disable clock generator */
-	rpiGpioSetCmGpctlEnab(ch, D_RPI_CMGPCTL_ENAB_OFF);
-	while (rpiGpioGetCmGpctlBusy(ch) == D_RPI_CMGPCTL_BUSY_ON);
+	rpiRegmapSetCmGpctlEnab(ch, D_RPI_CMGPCTL_ENAB_OFF);
+	while (rpiRegmapGetCmGpctlBusy(ch) == D_RPI_CMGPCTL_BUSY_ON);
 
 	/* set parameters */
-	rpiGpioSetGpfselFsel(pin, fsel);
-	rpiGpioSetCmGpctlMash(ch, mash);
-	rpiGpioSetCmGpctlSrc(ch, src);
-	rpiGpioSetCmGpdivDivi(ch, divi);
-	rpiGpioSetCmGpdivDivf(ch, divf);
+	rpiRegmapSetGpfselFsel(pin, fsel);
+	rpiRegmapSetCmGpctlMash(ch, mash);
+	rpiRegmapSetCmGpctlSrc(ch, src);
+	rpiRegmapSetCmGpdivDivi(ch, divi);
+	rpiRegmapSetCmGpdivDivf(ch, divf);
 
 	/* enable clock generator */
-	rpiGpioSetCmGpctlEnab(ch, D_RPI_CMGPCTL_ENAB_ON);
-	while (rpiGpioGetCmGpctlBusy(ch) == D_RPI_CMGPCTL_BUSY_OFF);
+	rpiRegmapSetCmGpctlEnab(ch, D_RPI_CMGPCTL_ENAB_ON);
+	while (rpiRegmapGetCmGpctlBusy(ch) == D_RPI_CMGPCTL_BUSY_OFF);
 
-	/* finalize GPIO */
-	ret = rpiGpioFinal();
+	/* finalize register map */
+	ret = rpiRegmapFinal();
 	assert(ret == E_OK);
 }
 
@@ -176,22 +176,22 @@ void rpiClkgenDisable(uint8_t pin)
 
 	ch = g_clkgen_gpio_ch_map[pin].ch;
 
-	/* initialize GPIO */
-	ret = rpiGpioInit();
+	/* initialize register map */
+	ret = rpiRegmapInit();
 	assert(ret == E_OK);
 
 	/* disable clock generator */
-	rpiGpioSetCmGpctlEnab(ch, D_RPI_CMGPCTL_ENAB_OFF);
-	while (rpiGpioGetCmGpctlBusy(ch) == D_RPI_CMGPCTL_BUSY_ON);
+	rpiRegmapSetCmGpctlEnab(ch, D_RPI_CMGPCTL_ENAB_OFF);
+	while (rpiRegmapGetCmGpctlBusy(ch) == D_RPI_CMGPCTL_BUSY_ON);
 
 	/* reset parameters */
-	rpiGpioSetGpfselFsel(pin, D_RPI_GPFSEL_FSEL_INPUT);
-	rpiGpioSetCmGpctlMash(ch, D_RPI_CMGPCTL_MASH_INT);
-	rpiGpioSetCmGpctlSrc(ch, D_RPI_CMGPCTL_SRC_GND);
-	rpiGpioSetCmGpdivDivi(ch, 0U);
-	rpiGpioSetCmGpdivDivf(ch, 0U);
+	rpiRegmapSetGpfselFsel(pin, D_RPI_GPFSEL_FSEL_INPUT);
+	rpiRegmapSetCmGpctlMash(ch, D_RPI_CMGPCTL_MASH_INT);
+	rpiRegmapSetCmGpctlSrc(ch, D_RPI_CMGPCTL_SRC_GND);
+	rpiRegmapSetCmGpdivDivi(ch, 0U);
+	rpiRegmapSetCmGpdivDivf(ch, 0U);
 
-	/* finalize GPIO */
-	ret = rpiGpioFinal();
+	/* finalize register map */
+	ret = rpiRegmapFinal();
 	assert(ret == E_OK);
 }

@@ -1,6 +1,6 @@
 /**
- * @file		rpi_gpio.c
- * @brief		GPIO Library Implementation
+ * @file		rpi_regmap.c
+ * @brief		Register Map Library Implementation
  *
  * @author		T. Ngtk
  * @copyright	Copyright (c) 2016 T. Ngtk
@@ -19,16 +19,16 @@
 #include <assert.h>
 
 #include "rpi_common.h"
-#include "rpi_gpio.h"
+#include "rpi_regmap.h"
 
 /*------------------------------------------------------------------------------
 	Defined Macros
 ------------------------------------------------------------------------------*/
 /** check base address of GPIO */
-#define M_CHECK_BASE_GPIO()	(g_gpio_base_gpio != NULL)
+#define M_CHECK_BASE_GPIO()	(g_regmap_base_gpio != NULL)
 
 /** check base address of clock manager */
-#define M_CHECK_BASE_CM()	(g_gpio_base_cm != NULL)
+#define M_CHECK_BASE_CM()	(g_regmap_base_cm != NULL)
 
 /** check number of GPIO pin */
 #define M_CHECK_PIN(pin)	((pin >= 0) && (pin <= 53))
@@ -51,21 +51,21 @@
 /*------------------------------------------------------------------------------
 	Global Variables
 ------------------------------------------------------------------------------*/
-static volatile uint8_t *g_gpio_base_gpio = NULL;		/**< base address of GPIO */
-static volatile uint8_t *g_gpio_base_cm   = NULL;		/**< base address of clock manager */
+static volatile uint8_t *g_regmap_base_gpio = NULL;		/**< base address of GPIO */
+static volatile uint8_t *g_regmap_base_cm   = NULL;		/**< base address of clock manager */
 
 /*------------------------------------------------------------------------------
 	Functions
 ------------------------------------------------------------------------------*/
 /**
- * @brief Initialize GPIO
+ * @brief Initialize Register Map
  *
  * @param nothing
  *
  * @retval E_OK		success
  * @retval E_OBJ	failure (object error)
  */
-int8_t rpiGpioInit()
+int8_t rpiRegmapInit()
 {
 	int fd;
 	void *mmap_gpio, *mmap_cm;
@@ -82,7 +82,7 @@ int8_t rpiGpioInit()
 		perror("mmap");
 		return E_OBJ;
 	}
-	g_gpio_base_gpio = (volatile uint8_t *)mmap_gpio;
+	g_regmap_base_gpio = (volatile uint8_t *)mmap_gpio;
 
 	/* map clock manager */
 	if ((mmap_cm = mmap(NULL, D_RPI_BLOCK_SIZE,
@@ -91,7 +91,7 @@ int8_t rpiGpioInit()
 		perror("mmap");
 		return E_OBJ;
 	}
-	g_gpio_base_cm = (volatile uint8_t *)mmap_cm;
+	g_regmap_base_cm = (volatile uint8_t *)mmap_cm;
 
 	if (close(fd) == -1) {
 		perror("close");
@@ -102,28 +102,28 @@ int8_t rpiGpioInit()
 }
 
 /**
- * @brief Finalize GPIO
+ * @brief Finalize Register Map
  *
  * @param nothing
  *
  * @retval E_OK		success
  * @retval E_OBJ	failure (object error)
  */
-int8_t rpiGpioFinal()
+int8_t rpiRegmapFinal()
 {
 	/* unmap GPIO */
-	if (munmap((void *)g_gpio_base_gpio, D_RPI_BLOCK_SIZE) == -1) {
+	if (munmap((void *)g_regmap_base_gpio, D_RPI_BLOCK_SIZE) == -1) {
 		perror("munmap");
 		return E_OBJ;
 	}
-	g_gpio_base_gpio = NULL;
+	g_regmap_base_gpio = NULL;
 
 	/* unmap clock manager */
-	if (munmap((void *)g_gpio_base_cm, D_RPI_BLOCK_SIZE) == -1) {
+	if (munmap((void *)g_regmap_base_cm, D_RPI_BLOCK_SIZE) == -1) {
 		perror("munmap");
 		return E_OBJ;
 	}
-	g_gpio_base_cm = NULL;
+	g_regmap_base_cm = NULL;
 
 	return E_OK;
 }
@@ -145,7 +145,7 @@ int8_t rpiGpioFinal()
  *
  * @return nothing
  */
-void rpiGpioSetGpfselFsel(uint8_t pin, uint32_t fsel)
+void rpiRegmapSetGpfselFsel(uint8_t pin, uint32_t fsel)
 {
 	volatile uint32_t *addr = M_RPI_ADDR_GPFSEL(pin);
 	uint8_t shamt = M_RPI_SHAMT_GPFSEL_FSEL(pin);
@@ -172,7 +172,7 @@ void rpiGpioSetGpfselFsel(uint8_t pin, uint32_t fsel)
  *
  * @return nothing
  */
-void rpiGpioSetCmGpctlMash(uint8_t ch, uint32_t mash)
+void rpiRegmapSetCmGpctlMash(uint8_t ch, uint32_t mash)
 {
 	volatile uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
 	uint32_t mask = (D_RPI_MASK_CMGPCTL_PASSWD << D_RPI_SHAMT_CMGPCTL_PASSWD) |
@@ -200,7 +200,7 @@ void rpiGpioSetCmGpctlMash(uint8_t ch, uint32_t mash)
  *
  * @return nothing
  */
-void rpiGpioSetCmGpctlEnab(uint8_t ch, uint32_t enab)
+void rpiRegmapSetCmGpctlEnab(uint8_t ch, uint32_t enab)
 {
 	volatile uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
 	uint32_t mask = (D_RPI_MASK_CMGPCTL_PASSWD << D_RPI_SHAMT_CMGPCTL_PASSWD) |
@@ -234,7 +234,7 @@ void rpiGpioSetCmGpctlEnab(uint8_t ch, uint32_t enab)
  *
  * @return nothing
  */
-void rpiGpioSetCmGpctlSrc(uint8_t ch, uint32_t src)
+void rpiRegmapSetCmGpctlSrc(uint8_t ch, uint32_t src)
 {
 	volatile uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
 	uint32_t mask = (D_RPI_MASK_CMGPCTL_PASSWD << D_RPI_SHAMT_CMGPCTL_PASSWD) |
@@ -260,7 +260,7 @@ void rpiGpioSetCmGpctlSrc(uint8_t ch, uint32_t src)
  *
  * @return nothing
  */
-void rpiGpioSetCmGpdivDivi(uint8_t ch, uint32_t divi)
+void rpiRegmapSetCmGpdivDivi(uint8_t ch, uint32_t divi)
 {
 	volatile uint32_t *addr = M_RPI_ADDR_CMGPDIV(ch);
 	uint32_t mask = (D_RPI_MASK_CMGPDIV_PASSWD << D_RPI_SHAMT_CMGPDIV_PASSWD) |
@@ -285,7 +285,7 @@ void rpiGpioSetCmGpdivDivi(uint8_t ch, uint32_t divi)
  *
  * @return nothing
  */
-void rpiGpioSetCmGpdivDivf(uint8_t ch, uint32_t divf)
+void rpiRegmapSetCmGpdivDivf(uint8_t ch, uint32_t divf)
 {
 	volatile uint32_t *addr = M_RPI_ADDR_CMGPDIV(ch);
 	uint32_t mask = (D_RPI_MASK_CMGPDIV_PASSWD << D_RPI_SHAMT_CMGPDIV_PASSWD) |
@@ -316,7 +316,7 @@ void rpiGpioSetCmGpdivDivf(uint8_t ch, uint32_t divf)
  * @retval D_RPI_GPFSEL_FSEL_ALT4	alternate function 4
  * @retval D_RPI_GPFSEL_FSEL_ALT5	alternate function 5
  */
-uint32_t rpiGpioGetGpfselFsel(uint8_t pin)
+uint32_t rpiRegmapGetGpfselFsel(uint8_t pin)
 {
 	volatile uint32_t *addr = M_RPI_ADDR_GPFSEL(pin);
 
@@ -339,7 +339,7 @@ uint32_t rpiGpioGetGpfselFsel(uint8_t pin)
  * @retval D_RPI_CMGPCTL_MASH_2STAGE	2-stage MASH
  * @retval D_RPI_CMGPCTL_MASH_3STAGE	3-stage MASH
  */
-uint32_t rpiGpioGetCmGpctlMash(uint8_t ch)
+uint32_t rpiRegmapGetCmGpctlMash(uint8_t ch)
 {
 	volatile uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
 
@@ -360,7 +360,7 @@ uint32_t rpiGpioGetCmGpctlMash(uint8_t ch)
  * @retval D_RPI_CMGPCTL_BUSY_OFF	clock generator is 'not' running
  * @retval D_RPI_CMGPCTL_BUSY_ON	clock generator is running
  */
-uint32_t rpiGpioGetCmGpctlBusy(uint8_t ch)
+uint32_t rpiRegmapGetCmGpctlBusy(uint8_t ch)
 {
 	volatile uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
 
@@ -381,7 +381,7 @@ uint32_t rpiGpioGetCmGpctlBusy(uint8_t ch)
  * @retval D_RPI_CMGPCTL_ENAB_OFF	disable the clock generator
  * @retval D_RPI_CMGPCTL_ENAB_ON	enable the clock generator
  */
-uint32_t rpiGpioGetCmGpctlEnab(uint8_t ch)
+uint32_t rpiRegmapGetCmGpctlEnab(uint8_t ch)
 {
 	volatile uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
 
@@ -408,7 +408,7 @@ uint32_t rpiGpioGetCmGpctlEnab(uint8_t ch)
  * @retval D_RPI_CMGPCTL_SRC_PLLD	PLLD per
  * @retval D_RPI_CMGPCTL_SRC_HDMI	HDMI auxiliary
  */
-uint32_t rpiGpioGetCmGpctlSrc(uint8_t ch)
+uint32_t rpiRegmapGetCmGpctlSrc(uint8_t ch)
 {
 	volatile uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
 
@@ -428,7 +428,7 @@ uint32_t rpiGpioGetCmGpctlSrc(uint8_t ch)
  *
  * @return integer part of divisor
  */
-uint32_t rpiGpioGetCmGpdivDivi(uint8_t ch)
+uint32_t rpiRegmapGetCmGpdivDivi(uint8_t ch)
 {
 	volatile uint32_t *addr = M_RPI_ADDR_CMGPDIV(ch);
 
@@ -448,7 +448,7 @@ uint32_t rpiGpioGetCmGpdivDivi(uint8_t ch)
  *
  * @return fractional part of divisor
  */
-uint32_t rpiGpioGetCmGpdivDivf(uint8_t ch)
+uint32_t rpiRegmapGetCmGpdivDivf(uint8_t ch)
 {
 	volatile uint32_t *addr = M_RPI_ADDR_CMGPDIV(ch);
 
