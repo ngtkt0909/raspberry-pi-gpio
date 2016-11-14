@@ -173,21 +173,26 @@ int8_t rpiSpiTransfer(uint8_t *tx_data, uint8_t *rx_data, uint32_t size)
  */
 int8_t rpiSpiSetMode(uint8_t mode)
 {
+	uint8_t mode_tmp;
+
 	/* check parameter */
 	assert(M_CHECK_MODE(mode));
 
 	/* set SPI mode for read-direction */
-	if (ioctl(g_spi_fd, SPI_IOC_RD_MODE, &g_spi_mode) == -1) {
+	mode_tmp = mode;
+	if (ioctl(g_spi_fd, SPI_IOC_RD_MODE, &mode_tmp) == -1) {
 		perror("ioctl");
 		return E_OBJ;
 	}
 
 	/* set SPI mode for write-direction */
-	if (ioctl(g_spi_fd, SPI_IOC_WR_MODE, &g_spi_mode) == -1) {
+	mode_tmp = mode;
+	if (ioctl(g_spi_fd, SPI_IOC_WR_MODE, &mode_tmp) == -1) {
 		perror("ioctl");
 		return E_OBJ;
 	}
 
+	g_spi_mode = mode;
 	return E_OK;
 }
 
