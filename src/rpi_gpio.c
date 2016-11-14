@@ -147,7 +147,7 @@ int8_t rpiGpioFinal()
  */
 void rpiGpioSetGpfselFsel(uint8_t pin, uint32_t fsel)
 {
-	uint32_t *addr = M_RPI_ADDR_GPFSEL(pin);
+	volatile uint32_t *addr = M_RPI_ADDR_GPFSEL(pin);
 	uint8_t shamt = M_RPI_SHAMT_GPFSEL_FSEL(pin);
 	uint32_t mask = (D_RPI_MASK_GPFSEL_FSEL << shamt);
 
@@ -174,7 +174,7 @@ void rpiGpioSetGpfselFsel(uint8_t pin, uint32_t fsel)
  */
 void rpiGpioSetCmGpctlMash(uint8_t ch, uint32_t mash)
 {
-	uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
+	volatile uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
 	uint32_t mask = (D_RPI_MASK_CMGPCTL_PASSWD << D_RPI_SHAMT_CMGPCTL_PASSWD) |
 					(D_RPI_MASK_CMGPCTL_MASH   << D_RPI_SHAMT_CMGPCTL_MASH);
 
@@ -202,7 +202,7 @@ void rpiGpioSetCmGpctlMash(uint8_t ch, uint32_t mash)
  */
 void rpiGpioSetCmGpctlEnab(uint8_t ch, uint32_t enab)
 {
-	uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
+	volatile uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
 	uint32_t mask = (D_RPI_MASK_CMGPCTL_PASSWD << D_RPI_SHAMT_CMGPCTL_PASSWD) |
 					(D_RPI_MASK_CMGPCTL_ENAB   << D_RPI_SHAMT_CMGPCTL_ENAB);
 
@@ -236,7 +236,7 @@ void rpiGpioSetCmGpctlEnab(uint8_t ch, uint32_t enab)
  */
 void rpiGpioSetCmGpctlSrc(uint8_t ch, uint32_t src)
 {
-	uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
+	volatile uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
 	uint32_t mask = (D_RPI_MASK_CMGPCTL_PASSWD << D_RPI_SHAMT_CMGPCTL_PASSWD) |
 					(D_RPI_MASK_CMGPCTL_SRC    << D_RPI_SHAMT_CMGPCTL_SRC);
 
@@ -262,7 +262,7 @@ void rpiGpioSetCmGpctlSrc(uint8_t ch, uint32_t src)
  */
 void rpiGpioSetCmGpdivDivi(uint8_t ch, uint32_t divi)
 {
-	uint32_t *addr = M_RPI_ADDR_CMGPDIV(ch);
+	volatile uint32_t *addr = M_RPI_ADDR_CMGPDIV(ch);
 	uint32_t mask = (D_RPI_MASK_CMGPDIV_PASSWD << D_RPI_SHAMT_CMGPDIV_PASSWD) |
 					(D_RPI_MASK_CMGPDIV_DIVI   << D_RPI_SHAMT_CMGPDIV_DIVI);
 
@@ -287,7 +287,7 @@ void rpiGpioSetCmGpdivDivi(uint8_t ch, uint32_t divi)
  */
 void rpiGpioSetCmGpdivDivf(uint8_t ch, uint32_t divf)
 {
-	uint32_t *addr = M_RPI_ADDR_CMGPDIV(ch);
+	volatile uint32_t *addr = M_RPI_ADDR_CMGPDIV(ch);
 	uint32_t mask = (D_RPI_MASK_CMGPDIV_PASSWD << D_RPI_SHAMT_CMGPDIV_PASSWD) |
 					(D_RPI_MASK_CMGPDIV_DIVF   << D_RPI_SHAMT_CMGPDIV_DIVF);
 
@@ -318,7 +318,7 @@ void rpiGpioSetCmGpdivDivf(uint8_t ch, uint32_t divf)
  */
 uint32_t rpiGpioGetGpfselFsel(uint8_t pin)
 {
-	uint32_t *addr = M_RPI_ADDR_GPFSEL(pin);
+	volatile uint32_t *addr = M_RPI_ADDR_GPFSEL(pin);
 
 	/* check parameter */
 	assert(M_CHECK_BASE_GPIO());
@@ -341,7 +341,7 @@ uint32_t rpiGpioGetGpfselFsel(uint8_t pin)
  */
 uint32_t rpiGpioGetCmGpctlMash(uint8_t ch)
 {
-	uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
+	volatile uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
 
 	/* check parameter */
 	assert(M_CHECK_BASE_CM());
@@ -362,7 +362,7 @@ uint32_t rpiGpioGetCmGpctlMash(uint8_t ch)
  */
 uint32_t rpiGpioGetCmGpctlBusy(uint8_t ch)
 {
-	uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
+	volatile uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
 
 	/* check parameter */
 	assert(M_CHECK_BASE_CM());
@@ -383,7 +383,7 @@ uint32_t rpiGpioGetCmGpctlBusy(uint8_t ch)
  */
 uint32_t rpiGpioGetCmGpctlEnab(uint8_t ch)
 {
-	uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
+	volatile uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
 
 	/* check parameter */
 	assert(M_CHECK_BASE_CM());
@@ -410,7 +410,7 @@ uint32_t rpiGpioGetCmGpctlEnab(uint8_t ch)
  */
 uint32_t rpiGpioGetCmGpctlSrc(uint8_t ch)
 {
-	uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
+	volatile uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
 
 	/* check parameter */
 	assert(M_CHECK_BASE_CM());
@@ -430,7 +430,7 @@ uint32_t rpiGpioGetCmGpctlSrc(uint8_t ch)
  */
 uint32_t rpiGpioGetCmGpdivDivi(uint8_t ch)
 {
-	uint32_t *addr = M_RPI_ADDR_CMGPDIV(ch);
+	volatile uint32_t *addr = M_RPI_ADDR_CMGPDIV(ch);
 
 	/* check parameter */
 	assert(M_CHECK_BASE_CM());
@@ -450,7 +450,7 @@ uint32_t rpiGpioGetCmGpdivDivi(uint8_t ch)
  */
 uint32_t rpiGpioGetCmGpdivDivf(uint8_t ch)
 {
-	uint32_t *addr = M_RPI_ADDR_CMGPDIV(ch);
+	volatile uint32_t *addr = M_RPI_ADDR_CMGPDIV(ch);
 
 	/* check parameter */
 	assert(M_CHECK_BASE_CM());
