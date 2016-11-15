@@ -26,6 +26,18 @@
 /** check number of GPIO pin */
 #define M_CHECK_PIN(pin)	((pin >= 0) && (pin <= 53))
 
+/** check channel of clock manager */
+#define M_CHECK_CH(ch)		((ch >= D_CH_GPCLK0) && (ch <= D_CH_GPCLK2))
+
+/** check alternate function */
+#define M_CHECK_FSEL(fsel) \
+	((fsel == D_RPI_GPFSEL_FSEL_ALT0) || \
+	 (fsel == D_RPI_GPFSEL_FSEL_ALT1) || \
+	 (fsel == D_RPI_GPFSEL_FSEL_ALT2) || \
+	 (fsel == D_RPI_GPFSEL_FSEL_ALT3) || \
+	 (fsel == D_RPI_GPFSEL_FSEL_ALT4) || \
+	 (fsel == D_RPI_GPFSEL_FSEL_ALT5))
+
 /*------------------------------------------------------------------------------
 	Type Definition
 ------------------------------------------------------------------------------*/
@@ -130,9 +142,10 @@ void rpiClkgenEnable(uint8_t pin, uint32_t mash, uint32_t src, uint32_t divi, ui
 
 	/* check parameter */
 	assert(M_CHECK_PIN(pin));
-
 	ch   = g_clkgen_gpio_ch_map[pin].ch;
 	fsel = g_clkgen_gpio_ch_map[pin].fsel;
+	assert(M_CHECK_CH(ch));
+	assert(M_CHECK_FSEL(fsel));
 
 	/* initialize register map */
 	ret = rpiRegmapInit();
@@ -173,8 +186,8 @@ void rpiClkgenDisable(uint8_t pin)
 
 	/* check parameter */
 	assert(M_CHECK_PIN(pin));
-
 	ch = g_clkgen_gpio_ch_map[pin].ch;
+	assert(M_CHECK_CH(ch));
 
 	/* initialize register map */
 	ret = rpiRegmapInit();
