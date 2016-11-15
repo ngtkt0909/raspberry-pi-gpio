@@ -149,7 +149,7 @@ void rpiRegmapSetGpfselFsel(uint8_t pin, uint32_t fsel)
 {
 	volatile uint32_t *addr = M_RPI_ADDR_GPFSEL(pin);
 	uint8_t shamt = M_RPI_SHAMT_GPFSEL_FSEL(pin);
-	uint32_t mask = (D_RPI_MASK_GPFSEL_FSEL << shamt);
+	uint32_t mask = M_RPI_MASK_GPFSEL_FSEL(pin);
 
 	/* check parameter */
 	assert(M_CHECK_BASE_GPIO());
@@ -175,8 +175,7 @@ void rpiRegmapSetGpfselFsel(uint8_t pin, uint32_t fsel)
 void rpiRegmapSetCmGpctlMash(uint8_t ch, uint32_t mash)
 {
 	volatile uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
-	uint32_t mask = (D_RPI_MASK_CMGPCTL_PASSWD << D_RPI_SHAMT_CMGPCTL_PASSWD) |
-					(D_RPI_MASK_CMGPCTL_MASH   << D_RPI_SHAMT_CMGPCTL_MASH);
+	uint32_t mask = D_RPI_MASK_CMGPCTL_PASSWD | D_RPI_MASK_CMGPCTL_MASH;
 
 	/* check parameter */
 	assert(M_CHECK_BASE_CM());
@@ -203,8 +202,7 @@ void rpiRegmapSetCmGpctlMash(uint8_t ch, uint32_t mash)
 void rpiRegmapSetCmGpctlEnab(uint8_t ch, uint32_t enab)
 {
 	volatile uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
-	uint32_t mask = (D_RPI_MASK_CMGPCTL_PASSWD << D_RPI_SHAMT_CMGPCTL_PASSWD) |
-					(D_RPI_MASK_CMGPCTL_ENAB   << D_RPI_SHAMT_CMGPCTL_ENAB);
+	uint32_t mask = D_RPI_MASK_CMGPCTL_PASSWD | D_RPI_MASK_CMGPCTL_ENAB;
 
 	/* check parameter */
 	assert(M_CHECK_BASE_CM());
@@ -237,8 +235,7 @@ void rpiRegmapSetCmGpctlEnab(uint8_t ch, uint32_t enab)
 void rpiRegmapSetCmGpctlSrc(uint8_t ch, uint32_t src)
 {
 	volatile uint32_t *addr = M_RPI_ADDR_CMGPCTL(ch);
-	uint32_t mask = (D_RPI_MASK_CMGPCTL_PASSWD << D_RPI_SHAMT_CMGPCTL_PASSWD) |
-					(D_RPI_MASK_CMGPCTL_SRC    << D_RPI_SHAMT_CMGPCTL_SRC);
+	uint32_t mask = D_RPI_MASK_CMGPCTL_PASSWD | D_RPI_MASK_CMGPCTL_SRC;
 
 	/* check parameter */
 	assert(M_CHECK_BASE_CM());
@@ -263,8 +260,7 @@ void rpiRegmapSetCmGpctlSrc(uint8_t ch, uint32_t src)
 void rpiRegmapSetCmGpdivDivi(uint8_t ch, uint32_t divi)
 {
 	volatile uint32_t *addr = M_RPI_ADDR_CMGPDIV(ch);
-	uint32_t mask = (D_RPI_MASK_CMGPDIV_PASSWD << D_RPI_SHAMT_CMGPDIV_PASSWD) |
-					(D_RPI_MASK_CMGPDIV_DIVI   << D_RPI_SHAMT_CMGPDIV_DIVI);
+	uint32_t mask = D_RPI_MASK_CMGPDIV_PASSWD | D_RPI_MASK_CMGPDIV_DIVI;
 
 	/* check parameter */
 	assert(M_CHECK_BASE_CM());
@@ -288,8 +284,7 @@ void rpiRegmapSetCmGpdivDivi(uint8_t ch, uint32_t divi)
 void rpiRegmapSetCmGpdivDivf(uint8_t ch, uint32_t divf)
 {
 	volatile uint32_t *addr = M_RPI_ADDR_CMGPDIV(ch);
-	uint32_t mask = (D_RPI_MASK_CMGPDIV_PASSWD << D_RPI_SHAMT_CMGPDIV_PASSWD) |
-					(D_RPI_MASK_CMGPDIV_DIVF   << D_RPI_SHAMT_CMGPDIV_DIVF);
+	uint32_t mask = D_RPI_MASK_CMGPDIV_PASSWD | D_RPI_MASK_CMGPDIV_DIVF;
 
 	/* check parameter */
 	assert(M_CHECK_BASE_CM());
@@ -325,7 +320,7 @@ uint32_t rpiRegmapGetGpfselFsel(uint8_t pin)
 	assert(M_CHECK_PIN(pin));
 
 	/* get FSEL */
-	return (*addr >> M_RPI_SHAMT_GPFSEL_FSEL(pin)) & D_RPI_MASK_GPFSEL_FSEL;
+	return (*addr & M_RPI_MASK_GPFSEL_FSEL(pin)) >> M_RPI_SHAMT_GPFSEL_FSEL(pin);
 }
 
 /**
@@ -348,7 +343,7 @@ uint32_t rpiRegmapGetCmGpctlMash(uint8_t ch)
 	assert(M_CHECK_CM_CH(ch));
 
 	/* get MASH */
-	return (*addr >> D_RPI_SHAMT_CMGPCTL_MASH) & D_RPI_MASK_CMGPCTL_MASH;
+	return (*addr & D_RPI_MASK_CMGPCTL_MASH) >> D_RPI_SHAMT_CMGPCTL_MASH;
 }
 
 /**
@@ -369,7 +364,7 @@ uint32_t rpiRegmapGetCmGpctlBusy(uint8_t ch)
 	assert(M_CHECK_CM_CH(ch));
 
 	/* get BUSY */
-	return (*addr >> D_RPI_SHAMT_CMGPCTL_BUSY) & D_RPI_MASK_CMGPCTL_BUSY;
+	return (*addr & D_RPI_MASK_CMGPCTL_BUSY) >> D_RPI_SHAMT_CMGPCTL_BUSY;
 }
 
 /**
@@ -390,7 +385,7 @@ uint32_t rpiRegmapGetCmGpctlEnab(uint8_t ch)
 	assert(M_CHECK_CM_CH(ch));
 
 	/* get ENAB */
-	return (*addr >> D_RPI_SHAMT_CMGPCTL_ENAB) & D_RPI_MASK_CMGPCTL_ENAB;
+	return (*addr & D_RPI_MASK_CMGPCTL_ENAB) >> D_RPI_SHAMT_CMGPCTL_ENAB;
 }
 
 /**
@@ -417,7 +412,7 @@ uint32_t rpiRegmapGetCmGpctlSrc(uint8_t ch)
 	assert(M_CHECK_CM_CH(ch));
 
 	/* get SRC */
-	return (*addr >> D_RPI_SHAMT_CMGPCTL_SRC) & D_RPI_MASK_CMGPCTL_SRC;
+	return (*addr & D_RPI_MASK_CMGPCTL_SRC) >> D_RPI_SHAMT_CMGPCTL_SRC;
 }
 
 /**
@@ -437,7 +432,7 @@ uint32_t rpiRegmapGetCmGpdivDivi(uint8_t ch)
 	assert(M_CHECK_CM_CH(ch));
 
 	/* get DIVI */
-	return (*addr >> D_RPI_SHAMT_CMGPDIV_DIVI) & D_RPI_MASK_CMGPDIV_DIVI;
+	return (*addr & D_RPI_MASK_CMGPDIV_DIVI) >> D_RPI_SHAMT_CMGPDIV_DIVI;
 }
 
 /**
@@ -457,5 +452,5 @@ uint32_t rpiRegmapGetCmGpdivDivf(uint8_t ch)
 	assert(M_CHECK_CM_CH(ch));
 
 	/* get DIVF */
-	return (*addr >> D_RPI_SHAMT_CMGPDIV_DIVF) & D_RPI_MASK_CMGPDIV_DIVF;
+	return (*addr & D_RPI_MASK_CMGPDIV_DIVF) >> D_RPI_SHAMT_CMGPDIV_DIVF;
 }

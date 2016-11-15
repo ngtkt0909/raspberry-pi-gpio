@@ -52,15 +52,16 @@
 #define D_RPI_SHAMT_CMGPDIV_DIVI		(12)				/**< shift amount of CM_GPnDIV.DIVI */
 #define D_RPI_SHAMT_CMGPDIV_DIVF		(0)					/**< shift amount of CM_GPnDIV.DIVF */
 
-#define D_RPI_MASK_GPFSEL_FSEL			(0x7)				/**< mask of GPFSEL.FSEL */
-#define D_RPI_MASK_CMGPCTL_PASSWD		(0xFF)				/**< mask of CM_GPnCTL.PASSWD */
-#define D_RPI_MASK_CMGPCTL_MASH			(0x3)				/**< mask of CM_GPnCTL.MASH */
-#define D_RPI_MASK_CMGPCTL_BUSY			(0x1)				/**< mask of CM_GPnCTL.BUSY */
-#define D_RPI_MASK_CMGPCTL_ENAB			(0x1)				/**< mask of CM_GPnCTL.ENAB */
-#define D_RPI_MASK_CMGPCTL_SRC			(0xF)				/**< mask of CM_GPnCTL.SRC */
-#define D_RPI_MASK_CMGPDIV_PASSWD		(0xFF)				/**< mask of CM_GPnDIV.PASSWD */
-#define D_RPI_MASK_CMGPDIV_DIVI			(0xFFF)				/**< mask of CM_GPnDIV.DIVI */
-#define D_RPI_MASK_CMGPDIV_DIVF			(0xFFF)				/**< mask of CM_GPnDIV.DIVF */
+#define M_RPI_MASK_GPFSEL_FSEL(pin)		(0x00000007 << M_RPI_SHAMT_GPFSEL_FSEL(pin))
+															/**< mask of GPFSEL.FSEL */
+#define D_RPI_MASK_CMGPCTL_PASSWD		(0xFF000000)		/**< mask of CM_GPnCTL.PASSWD */
+#define D_RPI_MASK_CMGPCTL_MASH			(0x00000600)		/**< mask of CM_GPnCTL.MASH */
+#define D_RPI_MASK_CMGPCTL_BUSY			(0x00000080)		/**< mask of CM_GPnCTL.BUSY */
+#define D_RPI_MASK_CMGPCTL_ENAB			(0x00000010)		/**< mask of CM_GPnCTL.ENAB */
+#define D_RPI_MASK_CMGPCTL_SRC			(0x0000000F)		/**< mask of CM_GPnCTL.SRC */
+#define D_RPI_MASK_CMGPDIV_PASSWD		(0xFF000000)		/**< mask of CM_GPnDIV.PASSWD */
+#define D_RPI_MASK_CMGPDIV_DIVI			(0x00FFF000)		/**< mask of CM_GPnDIV.DIVI */
+#define D_RPI_MASK_CMGPDIV_DIVF			(0x00000FFF)		/**< mask of CM_GPnDIV.DIVF */
 
 /* GPFSEL.FSEL */
 #define D_RPI_GPFSEL_FSEL_INPUT			(0x0)				/**< GPIO Pin is an input */
