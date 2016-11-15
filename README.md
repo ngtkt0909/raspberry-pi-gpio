@@ -16,10 +16,47 @@ Library for Raspberry Pi GPIO.
 
 ## Clock Generator Library
 ### Preparation
-(T.B.D.)
+Nothing.
 
 ### Usage
-(T.B.D.)
+Sample code to enable clock generator:
+```C
+#include "rpi_clkgen.h"
+
+int main(void)
+{
+	/* output 1HMz clock on GPIO-4 (1GHz / 1000) */
+	rpiClkgenEnable(4, D_RPI_CMGPCTL_MASH_INT, D_RPI_CMGPCTL_SRC_PLLC, 1000U, 0U);
+
+	return 0;
+}
+```
+
+Sample code to disable clock generator:
+```C
+#include "rpi_clkgen.h"
+
+int main(void)
+{
+	/* disable clock on GPIO-4 */
+	rpiClkgenDisable(4);
+
+	return 0;
+}
+```
+
+Clock frequency of each clock sources:
+
+| Clock Source           | Frequency (BCM2837) |
+|:-----------------------|--------------------:|
+| D_RPI_CMGPCTL_SRC_GND  |  0 Hz               |
+| D_RPI_CMGPCTL_SRC_OSC  |  19.2 MHz           |
+| D_RPI_CMGPCTL_SRC_DBG0 |  0 Hz               |
+| D_RPI_CMGPCTL_SRC_DBG1 |  0 Hz               |
+| D_RPI_CMGPCTL_SRC_PLLA |  0 Hz               |
+| D_RPI_CMGPCTL_SRC_PLLC |  1 GHz              |
+| D_RPI_CMGPCTL_SRC_PLLD |  500 MHz            |
+| D_RPI_CMGPCTL_SRC_HDMI |  0 Hz               |
 
 ## I2C Library
 ### Preparation
@@ -35,7 +72,7 @@ $ ls /dev | grep i2c
 ```
 
 ### Usage
-Sample code to use I2C library is shown below (error handling omitted):
+Sample code to use I2C library:
 ```C
 #include "rpi_i2c.h"
 
@@ -95,7 +132,7 @@ $ ls /dev | grep spi
 ```
 
 ### Usage
-Sample code to use SPI library is shown below (error handling omitted):
+Sample code to use SPI library:
 ```C
 #include "rpi_spi.h"
 
