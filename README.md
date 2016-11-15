@@ -47,16 +47,16 @@ int main(void)
 
 Clock frequency of each clock sources:
 
-| Clock Source           | Frequency (BCM2837) |
-|:-----------------------|--------------------:|
-| D_RPI_CMGPCTL_SRC_GND  |  0 Hz               |
-| D_RPI_CMGPCTL_SRC_OSC  |  19.2 MHz           |
-| D_RPI_CMGPCTL_SRC_DBG0 |  0 Hz               |
-| D_RPI_CMGPCTL_SRC_DBG1 |  0 Hz               |
-| D_RPI_CMGPCTL_SRC_PLLA |  0 Hz               |
-| D_RPI_CMGPCTL_SRC_PLLC |  1 GHz              |
-| D_RPI_CMGPCTL_SRC_PLLD |  500 MHz            |
-| D_RPI_CMGPCTL_SRC_HDMI |  0 Hz               |
+| Clock Source   | Parameter              | Frequency (BCM2837) |
+|:---------------|:-----------------------|--------------------:|
+| GND            | D_RPI_CMGPCTL_SRC_GND  |  0 Hz               |
+| oscillator     | D_RPI_CMGPCTL_SRC_OSC  |  19.2 MHz           |
+| testdebug0     | D_RPI_CMGPCTL_SRC_DBG0 |  0 Hz               |
+| testdebug1     | D_RPI_CMGPCTL_SRC_DBG1 |  0 Hz               |
+| PLLA per       | D_RPI_CMGPCTL_SRC_PLLA |  0 Hz               |
+| PLLC per       | D_RPI_CMGPCTL_SRC_PLLC |  1 GHz              |
+| PLLD per       | D_RPI_CMGPCTL_SRC_PLLD |  500 MHz            |
+| HDMI auxiliary | D_RPI_CMGPCTL_SRC_HDMI |  0 Hz               |
 
 GPIO pins that can be used as a clock source:
 ```
