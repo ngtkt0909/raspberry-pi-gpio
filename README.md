@@ -58,6 +58,11 @@ Clock frequency of each clock sources:
 | D_RPI_CMGPCTL_SRC_PLLD |  500 MHz            |
 | D_RPI_CMGPCTL_SRC_HDMI |  0 Hz               |
 
+GPIO pins that can be used as a clock source:
+```
+GPIO-4, GPIO-5, GPIO-6, GPIO-20, GPIO-21, GPIO-32, GPIO-34, GPIO-42, GPIO-43, GPIO-44
+```
+
 ## I2C Library
 ### Preparation
 Enable I2C device driver:
