@@ -26,7 +26,7 @@ Sample code to enable clock generator:
 int main(void)
 {
 	/* output 1HMz clock on GPIO-4 (1GHz / 1000) */
-	rpiClkgenEnable(4, D_RPI_CMGPCTL_MASH_INT, D_RPI_CMGPCTL_SRC_PLLC, 1000U, 0U);
+	rpiClkgenEnable(4U, D_RPI_CMGPCTL_MASH_INT, D_RPI_CMGPCTL_SRC_PLLC, 1000U, 0U);
 
 	return 0;
 }
@@ -39,7 +39,7 @@ Sample code to disable clock generator:
 int main(void)
 {
 	/* disable clock on GPIO-4 */
-	rpiClkgenDisable(4);
+	rpiClkgenDisable(4U);
 
 	return 0;
 }
