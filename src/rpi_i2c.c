@@ -104,7 +104,7 @@ int8_t rpiI2cClose()
 int8_t rpiI2cSetSlave(uint8_t slave_addr)
 {
 	/* set slave address */
-	if (ioctl(g_i2c_fd, I2C_SLAVE, &slave_addr) == -1) {
+	if (ioctl(g_i2c_fd, I2C_SLAVE, slave_addr) == -1) {
 		perror("ioctl");
 		return E_OBJ;
 	}
