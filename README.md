@@ -16,7 +16,7 @@ Library for Raspberry Pi GPIO.
 
 ## Clock Generator Library
 ### Preparation
-Nothing.
+Not necessary.
 
 ### Usage
 Sample code to enable clock generator:
@@ -74,6 +74,12 @@ Select *[7 Advanced Options] > [A7 I2C] > [Yes]*.
 You can discover device drivers at `/dev`:
 ```shell
 $ ls /dev | grep i2c
+```
+
+If want to enable **Repeated Start Condition**,
+create `/etc/modprobe.d/i2c.conf` and add below line:
+```
+options i2c_bcm2708 combined=1
 ```
 
 ### Usage
@@ -182,7 +188,7 @@ int main(void)
 
 ## Register Map Library
 ### Preparation
-Nothing.
+Not necessary.
 
 ### Usage
 Sample code to use register map library:
