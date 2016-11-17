@@ -182,10 +182,60 @@ int main(void)
 
 ## Register Map Library
 ### Preparation
-(T.B.D.)
+Nothing.
 
 ### Usage
-(T.B.D.)
+Sample code to use register map library:
+```C
+#include "rpi_regmap.h"
+
+int main(void)
+{
+	/* initialize register map library */
+	rpiRegmapInit();
+
+	/*
+	 * other register map libraries, rpiRegmapSet***() and rpiRegmapGet***(), are available here.
+	 * [Setter functions]
+	 *   void rpiRegmapSetGpfselFsel(uint8_t pin, uint32_t fsel);
+	 *   void rpiRegmapSetCmGpctlMash(uint8_t ch, uint32_t mash);
+	 *   void rpiRegmapSetCmGpctlEnab(uint8_t ch, uint32_t enab);
+	 *   void rpiRegmapSetCmGpctlSrc(uint8_t ch, uint32_t src);
+	 *   void rpiRegmapSetCmGpdivDivi(uint8_t ch, uint32_t divi);
+	 *   void rpiRegmapSetCmGpdivDivf(uint8_t ch, uint32_t divf);
+	 * [Getter functions]
+	 *   uint32_t rpiRegmapGetGpfselFsel(uint8_t pin);
+	 *   uint32_t rpiRegmapGetCmGpctlMash(uint8_t ch);
+	 *   uint32_t rpiRegmapGetCmGpctlBusy(uint8_t ch);
+	 *   uint32_t rpiRegmapGetCmGpctlEnab(uint8_t ch);
+	 *   uint32_t rpiRegmapGetCmGpctlSrc(uint8_t ch);
+	 *   uint32_t rpiRegmapGetCmGpdivDivi(uint8_t ch);
+	 *   uint32_t rpiRegmapGetCmGpdivDivf(uint8_t ch);
+	 */
+	...
+
+	/* finalize register map library */
+	rpiRegmapFinal();
+
+	return 0;
+}
+```
+
+For more details of libraries and registers of SoC,
+refer to the documentation introduced in the **Documentation** section and
+[hardware manual](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2835/BCM2835-ARM-Peripherals.pdf).
+
+***[Attention] The Above hardware manual is for Raspberry Pi 1 (BCM2835).
+Note that the base address of the peripheral register is different
+on Raspberry Pi 2 (BCM2836) and Raspberry Pi 3 (BCM2837).
+If you want to use my register map library on Raspberry Pi 1,
+you must change the value of `D_RPI_BASE_GPIO` and `D_RPI_BASE_CM` as below.***
+
+| Raspberry Pi   | SoC     | Base Address | D_RPI_BASE_GPIO | D_RPI_BASE_CM |
+|:---------------|:--------|:-------------|:----------------|:--------------|
+| Raspberry Pi 1 | BCM2835 | 0x20000000   | 0x20200000      | 0x20101000    |
+| Raspberry Pi 2 | BCM2836 | 0x3F000000   | 0x3F200000      | 0x3F101000    |
+| Raspberry Pi 3 | BCM2837 | 0x3F000000   | 0x3F200000      | 0x3F101000    |
 
 ## Documentation
 Install tools to generate documentation:
