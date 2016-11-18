@@ -1,10 +1,13 @@
 /**
- * raspberry-pi-gpio
+ * @file		rpi_i2c.c
+ * @brief		I2C Library Implementation
  *
- * Copyright (c) 2016 T. Ngtk
+ * @author		T. Ngtk
+ * @copyright	Copyright (c) 2016 T. Ngtk
  *
- * Released under the MIT License.
- * https://github.com/ngtkt0909/raspberry-pi-gpio/blob/master/LICENSE
+ * @par License
+ *	Released under the MIT License.<BR>
+ *	https://github.com/ngtkt0909/raspberry-pi-gpio/blob/master/LICENSE
  */
 
 #include <sys/types.h>
@@ -23,13 +26,13 @@
 /*------------------------------------------------------------------------------
 	Defined Macros
 ------------------------------------------------------------------------------*/
-#define D_FD_NOT_OPENED			(-1)		/* file descriptor (not opened) */
-#define D_DEFAULT_SLAVE_ADDR	(0x00U)		/* default slave address */
+#define D_FD_NOT_OPENED			(-1)		/**< file descriptor (not opened) */
+#define D_DEFAULT_SLAVE_ADDR	(0x00U)		/**< default slave address */
 
 /*------------------------------------------------------------------------------
 	Global Variables
 ------------------------------------------------------------------------------*/
-static int g_i2c_fd = D_FD_NOT_OPENED;		/* file descriptor */
+static int g_i2c_fd = D_FD_NOT_OPENED;		/**< file descriptor */
 
 /*------------------------------------------------------------------------------
 	Functions
@@ -101,7 +104,7 @@ int8_t rpiI2cClose()
 int8_t rpiI2cSetSlave(uint8_t slave_addr)
 {
 	/* set slave address */
-	if (ioctl(g_i2c_fd, I2C_SLAVE, &slave_addr) == -1) {
+	if (ioctl(g_i2c_fd, I2C_SLAVE, slave_addr) == -1) {
 		perror("ioctl");
 		return E_OBJ;
 	}

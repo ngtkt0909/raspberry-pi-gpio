@@ -1,14 +1,17 @@
 /**
- * raspberry-pi-gpio
+ * @file		rpi_spi.h
+ * @brief		SPI Library Header
  *
- * Copyright (c) 2016 T. Ngtk
+ * @author		T. Ngtk
+ * @copyright	Copyright (c) 2016 T. Ngtk
  *
- * Released under the MIT License.
- * https://github.com/ngtkt0909/raspberry-pi-gpio/blob/master/LICENSE
+ * @par License
+ *	Released under the MIT License.<BR>
+ *	https://github.com/ngtkt0909/raspberry-pi-gpio/blob/master/LICENSE
  */
 
-#if !defined(__RPI_SPI_H__)
-#define __RPI_SPI_H__		/* include guard */
+#ifndef __RPI_SPI_H__
+#define __RPI_SPI_H__		/**< include guard */
 
 #include <linux/spi/spidev.h>
 #include <stdint.h>
@@ -16,8 +19,8 @@
 /*------------------------------------------------------------------------------
 	Defined Macros
 ------------------------------------------------------------------------------*/
-#define D_SPI_CS_POS_LOGIC		(1U)				/* CS Positive Logic */
-#define D_SPI_CS_NEG_LOGIC		(0U)				/* CS Negative Logic */
+#define D_SPI_CS_POS_LOGIC		(1U)				/**< CS Positive Logic */
+#define D_SPI_CS_NEG_LOGIC		(0U)				/**< CS Negative Logic */
 
 /*------------------------------------------------------------------------------
 	Prototype Declaration

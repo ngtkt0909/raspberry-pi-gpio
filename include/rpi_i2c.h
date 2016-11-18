@@ -1,14 +1,17 @@
 /**
- * raspberry-pi-gpio
+ * @file		rpi_i2c.h
+ * @brief		I2C Library Header
  *
- * Copyright (c) 2016 T. Ngtk
+ * @author		T. Ngtk
+ * @copyright	Copyright (c) 2016 T. Ngtk
  *
- * Released under the MIT License.
- * https://github.com/ngtkt0909/raspberry-pi-gpio/blob/master/LICENSE
+ * @par License
+ *	Released under the MIT License.<BR>
+ *	https://github.com/ngtkt0909/raspberry-pi-gpio/blob/master/LICENSE
  */
 
-#if !defined(__RPI_I2C_H__)
-#define __RPI_I2C_H__		/* include guard */
+#ifndef __RPI_I2C_H__
+#define __RPI_I2C_H__		/**< include guard */
 
 #include <linux/i2c-dev.h>
 #include <stdint.h>

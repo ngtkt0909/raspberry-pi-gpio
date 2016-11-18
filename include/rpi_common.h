@@ -1,17 +1,23 @@
 /**
- * raspberry-pi-gpio
+ * @file		rpi_common.h
+ * @brief		Common Header
  *
- * Copyright (c) 2016 T. Ngtk
+ * @author		T. Ngtk
+ * @copyright	Copyright (c) 2016 T. Ngtk
  *
- * Released under the MIT License.
- * https://github.com/ngtkt0909/raspberry-pi-gpio/blob/master/LICENSE
+ * @par License
+ *	Released under the MIT License.<BR>
+ *	https://github.com/ngtkt0909/raspberry-pi-gpio/blob/master/LICENSE
  */
 
-#if !defined(__RPI_COMMON_H__)
-#define __RPI_COMMON_H__		/* include guard */
+#ifndef __RPI_COMMON_H__
+#define __RPI_COMMON_H__		/**< include guard */
 
-#define E_OK		(0)			/* success */
-#define E_PAR		(-17)		/* failure (parameter error) */
-#define E_OBJ		(-41)		/* failure (object error) */
+/*------------------------------------------------------------------------------
+	Defined Macros
+------------------------------------------------------------------------------*/
+#define E_OK		(0)			/**< success */
+#define E_PAR		(-17)		/**< failure (parameter error) */
+#define E_OBJ		(-41)		/**< failure (object error) */
 
 #endif /* __RPI_COMMON_H__ */

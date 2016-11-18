@@ -1,10 +1,13 @@
 /**
- * raspberry-pi-gpio
+ * @file		rpi_spi.c
+ * @brief		SPI Library Implementation
  *
- * Copyright (c) 2016 T. Ngtk
+ * @author		T. Ngtk
+ * @copyright	Copyright (c) 2016 T. Ngtk
  *
- * Released under the MIT License.
- * https://github.com/ngtkt0909/raspberry-pi-gpio/blob/master/LICENSE
+ * @par License
+ *	Released under the MIT License.<BR>
+ *	https://github.com/ngtkt0909/raspberry-pi-gpio/blob/master/LICENSE
  */
 
 #include <sys/types.h>
@@ -21,21 +24,21 @@
 /*------------------------------------------------------------------------------
 	Defined Macros
 ------------------------------------------------------------------------------*/
-#define D_FD_NOT_OPENED			(-1)		/* file descriptor (not opened) */
+#define D_FD_NOT_OPENED			(-1)		/**< file descriptor (not opened) */
 
-/* check SPI mode */
+/** check SPI mode */
 #define M_CHECK_MODE(mode) \
 	((mode == SPI_MODE_0) || (mode == SPI_MODE_1) || (mode == SPI_MODE_2) || (mode == SPI_MODE_3))
 
 /*------------------------------------------------------------------------------
 	Global Variables
 ------------------------------------------------------------------------------*/
-static int		g_spi_fd			= D_FD_NOT_OPENED;	/* file descriptor */
-static uint8_t	g_spi_mode			= SPI_MODE_0;		/* SPI mode */
-static uint32_t	g_spi_speed			= 1000000UL;		/* transfer speed */
-static uint16_t	g_spi_delay			= 0U;				/* transfer delay time */
-static uint8_t	g_spi_bits_per_word	= 8U;				/* bits per word */
-static uint8_t	g_spi_cs_polarity	= 0U;				/* CS polarity */
+static int		g_spi_fd			= D_FD_NOT_OPENED;	/**< file descriptor */
+static uint8_t	g_spi_mode			= SPI_MODE_0;		/**< SPI mode */
+static uint32_t	g_spi_speed			= 1000000UL;		/**< transfer speed */
+static uint16_t	g_spi_delay			= 0U;				/**< transfer delay time */
+static uint8_t	g_spi_bits_per_word	= 8U;				/**< bits per word */
+static uint8_t	g_spi_cs_polarity	= 0U;				/**< CS polarity */
 
 /*------------------------------------------------------------------------------
 	Functions
@@ -170,21 +173,26 @@ int8_t rpiSpiTransfer(uint8_t *tx_data, uint8_t *rx_data, uint32_t size)
  */
 int8_t rpiSpiSetMode(uint8_t mode)
 {
+	uint8_t mode_tmp;
+
 	/* check parameter */
 	assert(M_CHECK_MODE(mode));
 
 	/* set SPI mode for read-direction */
-	if (ioctl(g_spi_fd, SPI_IOC_RD_MODE, &g_spi_mode) == -1) {
+	mode_tmp = mode;
+	if (ioctl(g_spi_fd, SPI_IOC_RD_MODE, &mode_tmp) == -1) {
 		perror("ioctl");
 		return E_OBJ;
 	}
 
 	/* set SPI mode for write-direction */
-	if (ioctl(g_spi_fd, SPI_IOC_WR_MODE, &g_spi_mode) == -1) {
+	mode_tmp = mode;
+	if (ioctl(g_spi_fd, SPI_IOC_WR_MODE, &mode_tmp) == -1) {
 		perror("ioctl");
 		return E_OBJ;
 	}
 
+	g_spi_mode = mode;
 	return E_OK;
 }
 

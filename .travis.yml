@@ -1,0 +1,14 @@
+language: c
+sudo: false
+addons:
+  apt:
+    packages:
+      - build-essential
+      - doxygen
+      - graphviz
+script:
+  - make
+  - make doc
+notifications:
+  on_success: never
+  on_failure: never
