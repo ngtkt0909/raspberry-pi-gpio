@@ -76,12 +76,6 @@ You can discover device drivers at `/dev`:
 $ ls /dev | grep i2c
 ```
 
-If want to enable **Repeated Start Condition**,
-create `/etc/modprobe.d/i2c.conf` and add below line:
-```
-options i2c_bcm2708 combined=1
-```
-
 ### Usage
 Sample code to use I2C library:
 ```C
@@ -227,11 +221,11 @@ int main(void)
 }
 ```
 
-For more details of libraries and registers of SoC,
-refer to the documentation introduced in the **Documentation** section and
+For more details of libraries and SoC registers,
+refer to the documentation introduced in the Documentation section and
 [hardware manual](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2835/BCM2835-ARM-Peripherals.pdf).
 
-***[Attention] The Above hardware manual is for Raspberry Pi 1 (BCM2835).
+***[Attention] The Above hardware manual is written for Raspberry Pi 1 (BCM2835).
 Note that the base address of the peripheral register is different
 on Raspberry Pi 2 (BCM2836) and Raspberry Pi 3 (BCM2837).
 If you want to use my register map library on Raspberry Pi 1,
