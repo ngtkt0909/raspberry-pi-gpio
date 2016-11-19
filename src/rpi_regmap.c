@@ -17,8 +17,6 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <assert.h>
-
-#include "rpi_common.h"
 #include "rpi_regmap.h"
 
 /*------------------------------------------------------------------------------

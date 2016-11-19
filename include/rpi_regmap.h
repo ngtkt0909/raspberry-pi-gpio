@@ -14,6 +14,7 @@
 #define __RPI_REGMAP_H__		/**< include guard */
 
 #include <stdint.h>
+#include "rpi_common.h"
 
 /*------------------------------------------------------------------------------
 	Defined Macros
