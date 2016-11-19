@@ -19,8 +19,6 @@
 #include <math.h>
 #include <limits.h>
 #include <assert.h>
-
-#include "rpi_common.h"
 #include "rpi_gpio.h"
 
 /*------------------------------------------------------------------------------

@@ -19,8 +19,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-
-#include "rpi_common.h"
 #include "rpi_i2c.h"
 
 /*------------------------------------------------------------------------------

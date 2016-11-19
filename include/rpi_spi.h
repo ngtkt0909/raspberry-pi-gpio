@@ -13,8 +13,9 @@
 #ifndef __RPI_SPI_H__
 #define __RPI_SPI_H__		/**< include guard */
 
-#include <linux/spi/spidev.h>
 #include <stdint.h>
+#include <linux/spi/spidev.h>
+#include "rpi_common.h"
 
 /*------------------------------------------------------------------------------
 	Defined Macros
