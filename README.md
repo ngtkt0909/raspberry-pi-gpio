@@ -255,7 +255,7 @@ $ make
 ```
 
 ## License
-[MIT](https://github.com/ngtkt0909/dot-emacs/blob/develop/LICENSE)
+[MIT](https://github.com/ngtkt0909/dot-emacs/blob/master/LICENSE)
 
 ## Author
 [T. Ngtk](https://github.com/ngtkt0909)
