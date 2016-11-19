@@ -83,7 +83,6 @@ int8_t rpiGpioOpenOut(uint8_t pin)
  */
 int8_t rpiGpioClose(uint8_t pin)
 {
-	int ret;
 	char pin_str[D_LENGTH_PIN];
 
 	/* check parameter */
@@ -105,7 +104,6 @@ int8_t rpiGpioClose(uint8_t pin)
  */
 int8_t rpiGpioSet(uint8_t pin)
 {
-	int ret;
 	char pin_str[D_LENGTH_PATH];
 
 	/* check parameter */
@@ -127,7 +125,6 @@ int8_t rpiGpioSet(uint8_t pin)
  */
 int8_t rpiGpioClr(uint8_t pin)
 {
-	int ret;
 	char path_str[D_LENGTH_PATH];
 
 	/* check parameter */
