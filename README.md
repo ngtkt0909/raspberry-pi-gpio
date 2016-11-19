@@ -10,6 +10,7 @@
 Library for Raspberry Pi GPIO.
 
 * Clock Generator Library (rpi_clkgen.c, rpi_clkgen.h)
+* GPIO Library (rpi_gpio.c, rpi_gpio.h)
 * I2C Library (rpi_i2c.c, rpi_i2c.h)
 * SPI Library (rpi_spi.c, rpi_spi.h)
 * Register Map Library (rpi_regmap.c, rpi_regmap.h)
@@ -61,6 +62,57 @@ Clock frequency of each clock sources:
 GPIO pins that can be used as a clock source:
 ```
 GPIO-4, GPIO-5, GPIO-6, GPIO-20, GPIO-21, GPIO-32, GPIO-34, GPIO-42, GPIO-43, GPIO-44
+```
+
+## GPIO Library
+### Preparation
+Not necessary.
+
+### Usage
+Sample code to use GPIO library for an output port:
+```C
+#include "rpi_gpio.h"
+
+int main(void)
+{
+	/* open GPIO-4 as an output port */
+	rpiGpioOpenOut(4);
+
+	/*
+	 * The following GPIO libraries are available here.
+	 *   - int8_t rpiGpioSet(uint8_t pin);
+	 *   - int8_t rpiGpioClr(uint8_t pin);
+	 *   - int8_t rpiGpioGet(uint8_t pin, int32_t *val);
+	 */
+	...
+
+	/* close GPIO-4 */
+	rpiGpioClose(4);
+
+	return 0;
+}
+```
+
+Sample code to use GPIO library for an input port:
+```C
+#include "rpi_gpio.h"
+
+int main(void)
+{
+	/* open GPIO-5 as an input port */
+	rpiGpioOpenIn(5);
+
+	/*
+	 * The following GPIO libraries are available here.
+	 *   - int8_t rpiGpioGet(uint8_t pin, int32_t *val);
+	 */
+	...
+
+	/* close GPIO-5 */
+	rpiGpioClose(5);
+
+	return 0;
+}
 ```
 
 ## I2C Library
@@ -195,22 +247,22 @@ int main(void)
 	rpiRegmapInit();
 
 	/*
-	 * other register map libraries, rpiRegmapSet***() and rpiRegmapGet***(), are available here.
+	 * The following GPIO libraries, rpiRegmapSet***() and rpiRegmapGet***(), are available here.
 	 * [Setter functions]
-	 *   void rpiRegmapSetGpfselFsel(uint8_t pin, uint32_t fsel);
-	 *   void rpiRegmapSetCmGpctlMash(uint8_t ch, uint32_t mash);
-	 *   void rpiRegmapSetCmGpctlEnab(uint8_t ch, uint32_t enab);
-	 *   void rpiRegmapSetCmGpctlSrc(uint8_t ch, uint32_t src);
-	 *   void rpiRegmapSetCmGpdivDivi(uint8_t ch, uint32_t divi);
-	 *   void rpiRegmapSetCmGpdivDivf(uint8_t ch, uint32_t divf);
+	 *   - void rpiRegmapSetGpfselFsel(uint8_t pin, uint32_t fsel);
+	 *   - void rpiRegmapSetCmGpctlMash(uint8_t ch, uint32_t mash);
+	 *   - void rpiRegmapSetCmGpctlEnab(uint8_t ch, uint32_t enab);
+	 *   - void rpiRegmapSetCmGpctlSrc(uint8_t ch, uint32_t src);
+	 *   - void rpiRegmapSetCmGpdivDivi(uint8_t ch, uint32_t divi);
+	 *   - void rpiRegmapSetCmGpdivDivf(uint8_t ch, uint32_t divf);
 	 * [Getter functions]
-	 *   uint32_t rpiRegmapGetGpfselFsel(uint8_t pin);
-	 *   uint32_t rpiRegmapGetCmGpctlMash(uint8_t ch);
-	 *   uint32_t rpiRegmapGetCmGpctlBusy(uint8_t ch);
-	 *   uint32_t rpiRegmapGetCmGpctlEnab(uint8_t ch);
-	 *   uint32_t rpiRegmapGetCmGpctlSrc(uint8_t ch);
-	 *   uint32_t rpiRegmapGetCmGpdivDivi(uint8_t ch);
-	 *   uint32_t rpiRegmapGetCmGpdivDivf(uint8_t ch);
+	 *   - uint32_t rpiRegmapGetGpfselFsel(uint8_t pin);
+	 *   - uint32_t rpiRegmapGetCmGpctlMash(uint8_t ch);
+	 *   - uint32_t rpiRegmapGetCmGpctlBusy(uint8_t ch);
+	 *   - uint32_t rpiRegmapGetCmGpctlEnab(uint8_t ch);
+	 *   - uint32_t rpiRegmapGetCmGpctlSrc(uint8_t ch);
+	 *   - uint32_t rpiRegmapGetCmGpdivDivi(uint8_t ch);
+	 *   - uint32_t rpiRegmapGetCmGpdivDivf(uint8_t ch);
 	 */
 	...
 
