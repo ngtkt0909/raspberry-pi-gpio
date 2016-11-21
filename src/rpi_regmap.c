@@ -67,36 +67,39 @@ int8_t rpiRegmapInit()
 {
 	int fd;
 	void *mmap_gpio, *mmap_cm;
+	int8_t ret = E_OK;
 
 	if ((fd = open("/dev/mem", O_RDWR | O_SYNC)) == -1) {
 		perror("open");
-		return E_OBJ;
+		ret = E_OBJ;
+	} else {
+		/* map GPIO */
+		if ((mmap_gpio = mmap(NULL, D_RPI_BLOCK_SIZE,
+							PROT_READ | PROT_WRITE, MAP_SHARED,
+							fd, D_RPI_BASE_GPIO)) == MAP_FAILED) {
+			perror("mmap");
+			ret = E_OBJ;
+		} else {
+			g_regmap_base_gpio = (volatile uint8_t *)mmap_gpio;
+		}
+
+		/* map clock manager */
+		if ((mmap_cm = mmap(NULL, D_RPI_BLOCK_SIZE,
+							PROT_READ | PROT_WRITE, MAP_SHARED,
+							fd, D_RPI_BASE_CM)) == MAP_FAILED) {
+			perror("mmap");
+			ret = E_OBJ;
+		} else {
+			g_regmap_base_cm = (volatile uint8_t *)mmap_cm;
+		}
+
+		if (close(fd) == -1) {
+			perror("close");
+			ret = E_OBJ;
+		}
 	}
 
-	/* map GPIO */
-	if ((mmap_gpio = mmap(NULL, D_RPI_BLOCK_SIZE,
-						PROT_READ | PROT_WRITE, MAP_SHARED,
-						fd, D_RPI_BASE_GPIO)) == MAP_FAILED) {
-		perror("mmap");
-		return E_OBJ;
-	}
-	g_regmap_base_gpio = (volatile uint8_t *)mmap_gpio;
-
-	/* map clock manager */
-	if ((mmap_cm = mmap(NULL, D_RPI_BLOCK_SIZE,
-						PROT_READ | PROT_WRITE, MAP_SHARED,
-						fd, D_RPI_BASE_CM)) == MAP_FAILED) {
-		perror("mmap");
-		return E_OBJ;
-	}
-	g_regmap_base_cm = (volatile uint8_t *)mmap_cm;
-
-	if (close(fd) == -1) {
-		perror("close");
-		return E_OBJ;
-	}
-
-	return E_OK;
+	return ret;
 }
 
 /**
@@ -109,21 +112,25 @@ int8_t rpiRegmapInit()
  */
 int8_t rpiRegmapFinal()
 {
+	int8_t ret = E_OK;
+
 	/* unmap GPIO */
 	if (munmap((void *)g_regmap_base_gpio, D_RPI_BLOCK_SIZE) == -1) {
 		perror("munmap");
-		return E_OBJ;
+		ret = E_OBJ;
+	} else {
+		g_regmap_base_gpio = NULL;
 	}
-	g_regmap_base_gpio = NULL;
 
 	/* unmap clock manager */
 	if (munmap((void *)g_regmap_base_cm, D_RPI_BLOCK_SIZE) == -1) {
 		perror("munmap");
-		return E_OBJ;
+		ret = E_OBJ;
+	} else {
+		g_regmap_base_cm = NULL;
 	}
-	g_regmap_base_cm = NULL;
 
-	return E_OK;
+	return ret;
 }
 
 /**

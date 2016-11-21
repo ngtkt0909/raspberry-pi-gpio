@@ -144,9 +144,9 @@ int8_t rpiGpioClr(uint8_t pin)
  */
 int8_t rpiGpioGet(uint8_t pin, int32_t *val)
 {
-	int ret;
 	char path_str[D_LENGTH_PATH];
 	char val_str[D_LENGTH_VAL];
+	int8_t ret;
 
 	/* read GPIO pin */
 	sprintf(path_str, D_DIR_GPIO "gpio%d/value", pin);
@@ -181,9 +181,9 @@ int8_t rpiGpioGet(uint8_t pin, int32_t *val)
  */
 static int8_t sRpiGpioOpen(uint8_t pin, char *dir, uint8_t dir_size)
 {
-	int ret;
 	char pin_str[D_LENGTH_PIN];
 	char path_str[D_LENGTH_PATH];
+	int8_t ret;
 
 	/* check parameter */
 	assert(sizeof("") + M_DIGIT_SIZE(pin) <= D_LENGTH_PIN);
@@ -226,18 +226,18 @@ static int8_t sRpiGpioWrite(char *path, char *str, uint8_t str_size)
 	if ((fd = open(path, O_WRONLY)) == -1) {
 		perror("open");
 		ret = E_OBJ;
-	}
+	} else {
+		/* write to the file */
+		if (write(fd, str, str_size) != str_size) {
+			perror("write");
+			ret = E_OBJ;
+		}
 
-	/* write to the file */
-	if ((ret == E_OK) && (write(fd, str, str_size) != str_size)) {
-		perror("write");
-		ret = E_OBJ;
-	}
-
-	/* close file path */
-	if ((ret == E_OK) && (close(fd) == -1)) {
-		perror("close");
-		ret = E_OBJ;
+		/* close file path */
+		if (close(fd) == -1) {
+			perror("close");
+			ret = E_OBJ;
+		}
 	}
 
 	return ret;
@@ -262,18 +262,18 @@ static int8_t sRpiGpioRead(char *path, char *str, uint8_t str_size)
 	if ((fd = open(path, O_RDONLY)) == -1) {
 		perror("open");
 		ret = E_OBJ;
-	}
+	} else {
+		/* read from the file */
+		if (read(fd, str, str_size) != str_size) {
+			perror("read");
+			ret = E_OBJ;
+		}
 
-	/* read from the file */
-	if ((ret == E_OK) && (read(fd, str, str_size) != str_size)) {
-		perror("read");
-		ret = E_OBJ;
-	}
-
-	/* close file path */
-	if ((ret == E_OK) && (close(fd) == -1)) {
-		perror("close");
-		ret = E_OBJ;
+		/* close file path */
+		if (close(fd) == -1) {
+			perror("close");
+			ret = E_OBJ;
+		}
 	}
 
 	return ret;
